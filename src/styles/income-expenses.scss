@@ -1,0 +1,498 @@
+@use "mix/mix.scss" as mix;
+@use "variables/variables.scss" as var;
+@use "income.scss";
+
+
+@media screen and (max-width: 590px) {
+  .title {
+    font-size: 30px !important;
+  }
+  a{
+    font-size: 14px !important;
+  }
+
+  .tabs button{
+    font-size: 14px !important;
+  }
+  .date-current{
+    font-size: 14px !important;
+  }
+}
+
+.tabs {
+  margin-top: 60px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  white-space: nowrap;
+  flex-wrap: wrap;
+  margin-bottom: 57px;
+
+  button {
+
+    padding: 9px 12px;
+
+
+    border: 1px solid var.$date-color;
+    border-radius: 4px;
+
+
+    @include mix.font-bold;
+
+    font-size: 16px;
+
+    line-height: 19px;
+
+    letter-spacing: 0.457143px;
+
+    color: var.$date-color;
+    transition: all 0.2s;
+
+    &:hover {
+      color: var.$white;
+      background: var.$date-color;
+    }
+  }
+
+  .date-current {
+    display: flex;
+    gap: 17px;
+    @include mix.font-bold;
+    font-size: 16px;
+    letter-spacing: 0.03em;
+    color: var.$black;
+
+    span {
+      color: var.$date-color;
+      border-bottom: 1px solid var.$date-color;
+    }
+  }
+
+}
+
+.process-links {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  @include mix.font-bold;
+  font-size: 14px;
+
+  .edit-link {
+    border-radius: 5px;
+    padding: 12px 16px;
+    color: var.$white;
+    background: var.$background-success;
+    transition: all .2s;
+
+    &:hover {
+      background: var.$background-success-hover
+    }
+  }
+
+  .canceled-link {
+    transition: all .2s;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 16px;
+    color: var.$white;
+    background: var.$background-link-delete;
+
+    &:hover {
+      background: var.$background-link-delete-hover;
+    }
+  }
+}
+
+.table {
+  width: 100%;
+  border: none;
+  min-width: 600px;
+  box-sizing: border-box;
+  //  border-top: 1px solid #dee2e6;
+  text-align: center;
+
+  thead {
+    @include mix.font-extrabold;
+    font-size: 16px;
+    letter-spacing: 0.08em;
+    color: #052c65;
+    white-space: nowrap;
+  }
+
+  tbody {
+    @include mix.font-regular;
+    font-size: 16px;
+
+    .number {
+      @include mix.font-extrabold;
+    }
+
+    .expense-color {
+      color: var.$background-success;
+    }
+
+    .income-color {
+      color: var.$background-link-delete;
+    }
+
+    .table-item {
+      border-bottom: 1px solid #dee2e6;
+    }
+
+    .del-create {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+  }
+
+}
+
+@media screen and (max-width: 768px) {
+  .table {
+    min-width: 100%;
+
+    thead {
+      font-size: 14px;
+      letter-spacing: 0.06em;
+
+      th {
+        padding: 10px 6px;
+
+        &:first-child, // № операции
+        &:nth-child(6) { // Комментарий
+          display: none;
+        }
+      }
+    }
+
+    tbody {
+      font-size: 14px;
+
+      .number {
+        display: none;
+      }
+
+      .table-item {
+        td {
+
+          padding: 10px 6px;
+
+          &:first-child, // № операции
+          &:nth-child(6) { // Комментарий
+            display: none;
+          }
+        }
+      }
+
+      .del-create {
+        gap: 8px;
+
+        svg {
+          width: 12px;
+          height: 12px;
+        }
+      }
+    }
+  }
+}
+
+// Адаптация для 640px - 481px
+@media screen and (max-width: 640px) {
+  .table {
+    thead {
+      font-size: 13px;
+
+      th {
+        padding: 8px 4px;
+
+        &:nth-child(3) { // Категория
+          min-width: 80px;
+        }
+
+        &:nth-child(5) { // Дата
+          min-width: 90px;
+        }
+      }
+    }
+
+    tbody {
+      font-size: 13px;
+
+      .table-item {
+        td {
+          padding: 8px 4px;
+
+          &:nth-child(3) { // Категория
+            max-width: 80px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+
+          &:nth-child(5) { // Дата
+            min-width: 90px;
+          }
+        }
+      }
+
+      .del-create {
+        gap: 6px;
+        flex-wrap: wrap;
+
+        svg {
+          width: 11px;
+          height: 11px;
+        }
+      }
+    }
+  }
+}
+
+// Адаптация для 480px - 361px
+@media screen and (max-width: 480px) {
+  .table {
+    thead {
+      font-size: 12px;
+      letter-spacing: 0.04em;
+
+      th {
+        padding: 6px 3px;
+
+        &:nth-child(2) { // Тип
+          min-width: 60px;
+        }
+
+        &:nth-child(3) { // Категория
+          min-width: 70px;
+        }
+
+        &:nth-child(4) { // Сумма
+          min-width: 60px;
+        }
+      }
+    }
+
+    tbody {
+      font-size: 12px;
+
+      .expense-color,
+      .income-color {
+        font-size: 11px;
+      }
+
+      .table-item {
+        td {
+          padding: 6px 3px;
+
+          &:nth-child(2) { // Тип
+            min-width: 60px;
+          }
+
+          &:nth-child(3) { // Категория
+            min-width: 70px;
+            max-width: 70px;
+          }
+
+          &:nth-child(4) { // Сумма
+            min-width: 60px;
+          }
+        }
+      }
+
+      .del-create {
+        gap: 4px;
+        flex-direction: column;
+
+        button, a {
+          padding: 4px;
+          min-width: 24px;
+          min-height: 24px;
+        }
+
+        svg {
+          width: 10px;
+          height: 10px;
+        }
+      }
+    }
+  }
+}
+
+// Адаптация для 360px - 321px
+@media screen and (max-width: 360px) {
+  .table {
+    thead {
+      font-size: 11px;
+
+      th {
+        padding: 5px 2px;
+
+        &:nth-child(2) { // Тип
+          min-width: 50px;
+        }
+
+        &:nth-child(3) { // Категория
+          min-width: 60px;
+        }
+
+        &:nth-child(4) { // Сумма
+          min-width: 50px;
+        }
+
+        &:nth-child(5) { // Дата
+          min-width: 80px;
+        }
+      }
+    }
+
+    tbody {
+      font-size: 11px;
+
+      .expense-color,
+      .income-color {
+        font-size: 10px;
+      }
+
+      .table-item {
+        td {
+          padding: 5px 2px;
+
+          &:nth-child(2) { // Тип
+            min-width: 50px;
+          }
+
+          &:nth-child(3) { // Категория
+            min-width: 60px;
+            max-width: 60px;
+          }
+
+          &:nth-child(4) { // Сумма
+            min-width: 50px;
+          }
+
+          &:nth-child(5) { // Дата
+            min-width: 80px;
+          }
+        }
+      }
+
+      .del-create {
+        gap: 3px;
+
+        button, a {
+          padding: 3px;
+          min-width: 22px;
+          min-height: 22px;
+        }
+
+        svg {
+          width: 9px;
+          height: 9px;
+        }
+      }
+    }
+  }
+}
+
+// Адаптация для 320px
+@media screen and (max-width: 320px) {
+  .table {
+    thead {
+      font-size: 10px;
+
+      th {
+        padding: 4px 2px;
+
+        &:nth-child(2) { // Тип
+          min-width: 45px;
+        }
+
+        &:nth-child(3) { // Категория
+          min-width: 55px;
+        }
+
+        &:nth-child(4) { // Сумма
+          min-width: 45px;
+        }
+
+        &:nth-child(5) { // Дата
+          min-width: 70px;
+        }
+      }
+    }
+
+    tbody {
+      font-size: 10px;
+
+      .expense-color,
+      .income-color {
+        font-size: 9px;
+      }
+
+      .table-item {
+        td {
+          padding: 4px 2px;
+
+          &:nth-child(2) { // Тип
+            min-width: 45px;
+          }
+
+          &:nth-child(3) { // Категория
+            min-width: 55px;
+            max-width: 55px;
+          }
+
+          &:nth-child(4) { // Сумма
+            min-width: 45px;
+          }
+
+          &:nth-child(5) { // Дата
+            min-width: 70px;
+          }
+        }
+      }
+
+      .del-create {
+        gap: 2px;
+
+        button, a {
+          padding: 2px;
+          min-width: 20px;
+          min-height: 20px;
+        }
+
+        svg {
+          width: 8px;
+          height: 8px;
+        }
+      }
+    }
+  }
+}
+
+// Дополнительные медиа-запросы для улучшения отображения
+@media screen and (max-width: 590px) {
+  .title {
+    font-size: 30px !important;
+  }
+
+  a {
+    font-size: 12px !important;
+  }
+}
+
+// Для ландшафтной ориентации на мобильных устройствах
+@media screen and (max-width: 768px) and (orientation: landscape) {
+  .table {
+    thead th,
+    tbody td {
+      &:nth-child(3) { // Категория
+        display: table-cell !important;
+      }
+    }
+  }
+}

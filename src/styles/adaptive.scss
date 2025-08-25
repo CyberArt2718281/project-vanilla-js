@@ -1,0 +1,41 @@
+@media screen and (min-width: 1024px) {
+
+  .main-header {
+    display: none
+  }
+}
+
+@media screen and (max-width: 1024px) {
+
+  .main-header {
+    display: none
+  }
+}
+
+
+@media screen and (max-width: 993px) {
+
+  .main-header {
+    display: block
+  }
+
+  .wrapper {
+    .content-wrapper {
+      padding-top: 44px !important;
+      padding-right: 20px !important;
+    }
+  }
+
+
+}
+
+@media screen and (max-width: 560px) {
+  .wrapper {
+    .content-wrapper {
+      display: flex;
+      justify-content: center;
+      padding: 20px !important;
+    }
+  }
+}
+

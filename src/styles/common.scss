@@ -1,0 +1,249 @@
+@use "adaptive.scss";
+@use "variables/variables.scss" as vars;
+@use "mix/mix.scss" as mix;
+
+body {
+  font-family: vars.$font-roboto;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.title {
+
+  @include mix.font-bold;
+
+  font-size: 40px;
+  line-height: 47px;
+  color: vars.$background-title;
+}
+
+.wrapper {
+
+  .main-sidebar {
+    border-right: 1px solid vars.$background;
+    .sidebar {
+      position: relative;
+      padding: 0;
+    }
+    width: 219px;
+    background: #FFFFFF;
+
+    .logo {
+      img{
+        padding: 40px 71px 20px 50px;
+        border-bottom: 1px solid vars.$background;
+        margin-bottom: 60px;
+      }
+
+    }
+
+    .nav {
+      position: relative;
+      padding-left: 20px;
+      @include mix.font-regular;
+      font-size: 14px;
+      width: 178px;
+
+      .nav-item {
+        width: 178px;
+
+        .nav-link {
+          margin:0;
+          gap: 10px;
+          width: 178px;
+          border-radius: 5px;
+          padding: 12px 16px;
+          @include mix.box-shadow;
+          color: vars.$color-link;
+          transition: all .2s;
+
+          p {
+            white-space: nowrap;
+          }
+        }
+
+        .nav-link:hover {
+          svg path {
+            fill: vars.$white
+          }
+
+          p {
+            color: vars.$white !important;
+          }
+
+          gap: 10px;
+
+          box-shadow: none;
+          color: vars.$white !important;
+          background: vars.$background-link;
+        }
+
+        .active {
+          svg path {
+            fill: vars.$white
+          }
+
+          p {
+            color: vars.$white !important;
+          }
+
+          gap: 10px;
+
+          box-shadow: none;
+          color: vars.$white !important;
+          background: vars.$background-link;
+        }
+
+        .nav-link-disabled{
+          white-space: nowrap;
+          gap: 10px;
+          transition: all .2s;
+          width: 100%;
+          padding: 12px 16px;
+          border-radius: 5px;
+          p {
+            color: vars.$color-link;
+            margin: 0;
+          }
+        }
+        .nav-link-select {
+          white-space: nowrap;
+          gap: 10px;
+          transition: all .2s;
+          width: 100%;
+          padding: 12px 16px;
+          border-radius: 5px 5px 0 0;
+
+          p {
+            color: vars.$color-link;
+            margin: 0;
+          }
+        }
+
+        .menu-select {
+          border-radius: 5px 5px 0 0;
+          border-bottom: 0;
+          transition: all .2s;
+        }
+
+        .menu-select.active{
+          svg{
+            transform: rotate(90deg);
+          }
+        }
+
+        .menu-collapse {
+          border-radius: 0 0 5px 5px;
+          border: 1px solid vars.$background-link;
+            
+          .active-select {
+
+            background: vars.$background-link;
+            border-radius: 0 0 0 0;
+
+            color: vars.$white !important;
+
+
+          }
+
+          .menu-collapse-link {
+            display: block;
+            transition: all .2s;
+            color: vars.$background-link;
+
+            padding: 12px 16px;
+
+            &:not(:last-child) {
+
+              border-bottom: 1px solid vars.$background-link;
+            }
+          }
+
+          .menu-collapse-link:hover {
+            background: vars.$background-link;
+            border-radius: 0 0 0 0;
+
+            color: vars.$white !important;
+          }
+
+        }
+      }
+
+
+    }
+
+    .user-panel {
+      padding-right: 20px;
+      padding-left: 20px;
+
+      .row {
+
+        position: absolute;
+        width: 226px;
+        top: 41px;
+        height: 1px;
+        background: #D9D9D9;
+        left: 0;
+      }
+
+      .balance, {
+        @include mix.font-bold;
+        font-size: 14px;
+        padding-bottom: 20px;
+        gap: 10px;
+        color: vars.$color-bold;
+
+        strong {
+          color: vars.$background-link
+        }
+      }
+
+      .info {
+        @include mix.font-regular;
+        font-size: 14px;
+        padding-bottom: 40px;
+        padding-left: 0;
+        margin-top: 20px;
+        display: flex;
+        gap: 16px;
+        align-items: center;
+
+        .info-circle {
+          border-radius: 50%;
+          width: 36px;
+          height: 36px;
+          background: vars.$background;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          @include mix.box-shadow;
+
+          .profile-user {
+            color: vars.$color;
+            width: 16px;
+            height: 16px;
+          }
+
+        }
+      }
+
+    }
+
+
+  }
+
+  .content-wrapper {
+    padding: 100px 94px 0 29px;
+  }
+}
+
+
+
+.dropdown-menu{
+  padding: 0;
+  top: 273px;
+  left: 26px;
+  position: absolute;
+}
+

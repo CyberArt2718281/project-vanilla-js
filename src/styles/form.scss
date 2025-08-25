@@ -1,0 +1,201 @@
+@use "mix/mix.scss" as mix;
+@use "variables/variables.scss" as var;
+
+
+@media screen and (max-width: 480px) {
+  .login-title {
+    font-size: 30px !important;
+  }
+  .input-group{
+    display: flex;
+    justify-content: center;
+  }
+  .remember-me {
+    margin-left: 58px;
+  }
+  .login-block{
+    text-align: center;
+  }
+  .btn{
+    width: 288px !important;
+  }
+  .account-sign-up-text{
+    text-align: center;
+  }
+  form{
+    text-align: center;
+  }
+ .input-form{
+   width: 250px !important;
+ }
+ .login-block{
+
+  }
+}
+
+.container-form {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  justify-content: center;
+
+  .logo {
+    svg {
+      width: 171px;
+      height: 70px;
+    }
+
+    margin-bottom: 60px;
+  }
+
+  .login-block {
+    .account-sign-up-text {
+      @include mix.font-bold;
+      font-size: 12px;
+
+      .link {
+        margin-left: 10px;
+        text-decoration: underline;
+        text-decoration-skip-ink: none;
+        color: var.$background-link;
+      }
+
+      .link:hover {
+        text-decoration: none;
+        color: var.$background-hover-btn;
+      }
+    }
+
+    .login-title {
+      margin-bottom: 20px;
+      @include mix.font-bold;
+      font-size: 40px;
+      line-height: 47px;
+      color: var.$color-bold;
+    }
+
+    .input-group {
+      margin-bottom: 10px;
+      width: 397px;
+
+      .last-input {
+        margin-bottom: 20px;
+      }
+
+      .input-error {
+        @include mix.font-regular;
+        font-size: 15px;
+
+      }
+
+      .svg-block {
+        width: 38px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var.$background-form;
+        border-radius: 4px 0 0 4px;
+        border: 1px solid var.$border-color-form;
+
+      }
+
+      .input-form {
+        border-radius: 0 4px 4px 0;
+
+        @include mix.font-regular;
+        font-size: 15px;
+        width: 359px;
+        height: 38px;
+        color: var.$color-input;
+        border: 1px solid var.$border-color-form;
+        border-left: none;
+        padding: 7px 0 7px 13px;
+        outline: none;
+      }
+
+    }
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+
+      .remember-text {
+        @include mix.font-regular;
+        font-size: 12px;
+        line-height: 192%;
+        color: var.$black;
+      }
+
+      input[type="checkbox"] {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        box-sizing: border-box;
+        width: 13px;
+        height: 13px;
+        border: 1px solid var.$border-color-form;
+        border-radius: 2px;
+        background-color: var.$white;
+        cursor: pointer;
+        position: relative;
+        transition: all 0.2s ease;
+
+        &:hover,
+        &:focus,
+        &:active {
+          outline: none !important;
+          box-shadow: none !important;
+          border-color: var.$border-color-form;
+        }
+
+        &:checked {
+          background-color: #007bff;
+          border-color: #007bff;
+
+          &::before {
+            content: "";
+            position: absolute;
+            left: 4px;
+            top: 1px;
+            width: 4px;
+            height: 8px;
+            border: solid white;
+            border-width: 0 1px 1px 0;
+            transform: rotate(45deg);
+          }
+        }
+
+        &:disabled {
+          border-color: #e9ecef;
+          background-color: #f8f9fa;
+          cursor: not-allowed;
+
+          &:checked {
+            background-color: #adb5bd;
+            border-color: #adb5bd;
+          }
+        }
+      }
+    }
+
+    .btn {
+      height: 38px;
+      @include mix.font-bold;
+      font-size: 15px;
+      background: var.$background-link;
+      color: var.$white;
+      margin-bottom: 10px;
+      border: none
+    }
+
+    .btn:hover {
+      background: var.$background-hover-btn;
+    }
+
+  }
+}

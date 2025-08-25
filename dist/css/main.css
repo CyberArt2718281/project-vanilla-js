@@ -1,0 +1,65 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+.tabs {
+  margin-top: 60px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  white-space: nowrap;
+  flex-wrap: wrap;
+  margin-bottom: 140px;
+}
+.tabs button {
+  padding: 9px 12px;
+  border: 1px solid #6C757D;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 0.457143px;
+  color: #6C757D;
+  transition: all 0.2s;
+}
+.tabs button:hover {
+  color: #fff;
+  background: #6C757D;
+}
+.tabs .date-current {
+  display: flex;
+  gap: 17px;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 0.03em;
+  color: #000;
+}
+.tabs .date-current span {
+  color: #6C757D;
+  border-bottom: 1px solid #6C757D;
+}
+
+.card-body {
+  padding: 0;
+}
+
+h3 {
+  font-weight: 500;
+  margin: 20px;
+  font-size: 28px;
+  line-height: 33px;
+  color: #290661;
+  text-align: center;
+}
+
+.charts {
+  margin-bottom: 173px;
+}
+.charts .chartjs-render-monitor {
+  min-height: 250px !important;
+  height: 250px !important;
+  max-height: 416px !important;
+  max-width: 100% !important;
+  display: block !important;
+  width: 249px;
+}
+.charts .chart-income, .charts .chart-expenses {
+  padding: 0 !important;
+}

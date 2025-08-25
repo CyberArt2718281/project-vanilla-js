@@ -1,0 +1,161 @@
+@use "mix/mix.scss" as mix;
+@use "variables/variables.scss" as var;
+
+
+body.popup-open::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+}
+.main-sidebar{
+  z-index: 997;
+}
+.main-header{
+  z-index: 996;
+}
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  min-width: 300px;
+}
+
+.title {
+  margin-bottom: 40px;
+}
+
+.container-incomes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  @media screen and (max-width: 678px) {
+    justify-content: center;
+  }
+
+  .income-item {
+    max-width: 352px;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid var.$border-color-form;
+
+    .income-title {
+      @include mix.font-bold;
+      font-size: 28px;
+      line-height: 33px;
+      color: var.$chart-color;
+      margin-bottom: 10px;
+    }
+
+    .process-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      @include mix.font-bold;
+      font-size: 14px;
+
+      .edit-link {
+        border-radius: 5px;
+        padding: 12px 16px;
+        color: var.$white;
+        background: var.$background-link-edit;
+        transition: all .2s;
+        &:hover {
+          background: var.$background-hover-btn;
+        }
+      }
+
+      .delete-link {
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        padding: 12px 16px;
+        color: var.$white;
+        background: var.$background-link-delete;
+        transition: all .2s;
+        &:hover {
+          background: var.$background-link-delete-hover;
+        }
+      }
+
+    }
+  }
+
+}
+
+.popup {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  @include mix.font-bold;
+  border: 1px solid #ced4da;
+  border-radius: 12px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 530px;
+  padding: 40px;
+  text-align: center;
+  @media screen and (max-width: 678px) {
+    padding: 15px;
+    max-width: 300px;
+    font-size: clamp(8px, 14px, 16px);
+    .popup-text {
+      font-size: 16px !important;
+    }
+  }
+
+  .popup-text {
+    font-size: 20px;
+    color: #290661;
+    margin-bottom: 20px;
+  }
+
+  .popupLinks {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .success-delete-link {
+      border-radius: 5px;
+      text-align: center;
+      padding: 12px 16px;
+      white-space: nowrap;
+      color: var.$white;
+      background: var.$background-success;
+      transition: all .2s;
+      &:hover {
+        background: var.$background-success-hover;
+      }
+    }
+
+    .delete-link {
+      border-radius: 5px;
+      white-space: nowrap;
+      padding: 12px 16px;
+      background: var.$background-link-delete;
+      text-align: center;
+      outline: none;
+      border: none;
+      color: var.$white;
+      transition: all .2s;
+      &:hover {
+        background: var.$background-link-delete-hover;
+      }
+    }
+  }
+}

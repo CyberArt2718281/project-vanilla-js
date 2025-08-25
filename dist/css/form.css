@@ -1,0 +1,137 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+.container-form {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  justify-content: center;
+}
+.container-form .logo {
+  margin-bottom: 60px;
+}
+.container-form .logo svg {
+  width: 171px;
+  height: 70px;
+}
+.container-form .login-block .account-sign-up-text {
+  font-weight: 500;
+  font-size: 12px;
+}
+.container-form .login-block .account-sign-up-text .link {
+  margin-left: 10px;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  color: #0d6efd;
+}
+.container-form .login-block .account-sign-up-text .link:hover {
+  text-decoration: none;
+  color: #0a57bf;
+}
+.container-form .login-block .login-title {
+  margin-bottom: 20px;
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 47px;
+  color: #052c65;
+}
+.container-form .login-block .input-group {
+  margin-bottom: 10px;
+  width: 397px;
+}
+.container-form .login-block .input-group .last-input {
+  margin-bottom: 20px;
+}
+.container-form .login-block .input-group .input-error {
+  font-weight: 400;
+  font-size: 15px;
+}
+.container-form .login-block .input-group .svg-block {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e9ecef;
+  border-radius: 4px 0 0 4px;
+  border: 1px solid #ced4da;
+}
+.container-form .login-block .input-group .input-form {
+  border-radius: 0 4px 4px 0;
+  font-weight: 400;
+  font-size: 15px;
+  width: 359px;
+  height: 38px;
+  color: #6c757d;
+  border: 1px solid #ced4da;
+  border-left: none;
+  padding: 7px 0 7px 13px;
+  outline: none;
+}
+.container-form .login-block .remember-me {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.container-form .login-block .remember-me .remember-text {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 192%;
+  color: #000;
+}
+.container-form .login-block .remember-me input[type=checkbox] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  box-sizing: border-box;
+  width: 13px;
+  height: 13px;
+  border: 1px solid #ced4da;
+  border-radius: 2px;
+  background-color: #fff;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+.container-form .login-block .remember-me input[type=checkbox]:hover, .container-form .login-block .remember-me input[type=checkbox]:focus, .container-form .login-block .remember-me input[type=checkbox]:active {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: #ced4da;
+}
+.container-form .login-block .remember-me input[type=checkbox]:checked {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+.container-form .login-block .remember-me input[type=checkbox]:checked::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 1px 1px 0;
+  transform: rotate(45deg);
+}
+.container-form .login-block .remember-me input[type=checkbox]:disabled {
+  border-color: #e9ecef;
+  background-color: #f8f9fa;
+  cursor: not-allowed;
+}
+.container-form .login-block .remember-me input[type=checkbox]:disabled:checked {
+  background-color: #adb5bd;
+  border-color: #adb5bd;
+}
+.container-form .login-block .btn {
+  height: 38px;
+  font-weight: 500;
+  font-size: 15px;
+  background: #0d6efd;
+  color: #fff;
+  margin-bottom: 10px;
+  border: none;
+}
+.container-form .login-block .btn:hover {
+  background: #0a57bf;
+}
