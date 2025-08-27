@@ -126,7 +126,7 @@ export class Router {
          },
          {
             route: '/income-expenses/create',
-            title: 'Доходы и Расходы',
+            title: 'Доходы и Расходы | Создание',
             filepathTemplate: '/templates/pages/income-expenses/create.html',
             useLayout: '/templates/layout.html',
             load: () => {
@@ -139,7 +139,7 @@ export class Router {
          },
          {
             route: '/income-expenses/edit',
-            title: 'Доходы и Расходы',
+            title: 'Доходы и Расходы | Редактирование',
             filepathTemplate: '/templates/pages/income-expenses/edit.html',
             useLayout: '/templates/layout.html',
             load: () => {
@@ -260,6 +260,8 @@ export class Router {
          }
       }
    }
+
+
    async activateRoute(e, oldRoute = null) {
       if (oldRoute) {
          const currentRoute = this.routes.find(item => item.route === oldRoute);
@@ -283,19 +285,24 @@ export class Router {
 
       if (newRoute) {
          this.closeMobileSidebar();
-         if (newRoute.styles && newRoute.styles.length > 0) {
-            for (const style of newRoute.styles) {
-               await FileUtils.loadPageStyle('/css/' + style, this.adminLteStylesheetElement);
-            }
 
+         this.contentPageElement.innerHTML = '<div class="loading">Загрузка...</div>';
+
+         if (newRoute.styles && newRoute.styles.length > 0) {
+            const stylePromises = newRoute.styles.map(style =>
+              FileUtils.loadPageStyle('/css/' + style, this.adminLteStylesheetElement)
+            );
+            await Promise.all(stylePromises);
          }
+
          if (newRoute.scripts && newRoute.scripts.length > 0) {
-            for (const script of newRoute.scripts) {
-               await FileUtils.loadPageScript('/js/' + script)
-            }
+            const scriptPromises = newRoute.scripts.map(script =>
+              FileUtils.loadPageScript('/js/' + script)
+            );
+            await Promise.all(scriptPromises);
          }
          if (newRoute.title) {
-            this.titlePageElement.innerText = newRoute.title + ' | Freelance Studio'
+            this.titlePageElement.innerText = newRoute.title ;
          }
 
          if (newRoute.filepathTemplate) {
@@ -307,7 +314,31 @@ export class Router {
                this.closeMobileSidebar();
                document.body.classList.add('sidebar-mini')
                document.body.classList.add('layout-fixed')
+               let isLogout = false;
+               const profileToggle = document.getElementById('profile-toggle');
+               const logoutElement = document.getElementById('logout');
 
+               profileToggle.addEventListener('click', () => {
+                  if (!isLogout) {
+                     // Показываем с анимацией
+                     logoutElement.style.display = 'flex';
+                     logoutElement.classList.remove('logout-hiding');
+                     isLogout = true;
+                  } else {
+                     // Скрываем с анимацией
+                     logoutElement.classList.add('logout-hiding');
+
+                     // Обработчик завершения анимации
+                     const handleAnimationEnd = () => {
+                        logoutElement.style.display = 'none';
+                        logoutElement.classList.remove('logout-hiding');
+                        logoutElement.removeEventListener('animationend', handleAnimationEnd);
+                     };
+
+                     logoutElement.addEventListener('animationend', handleAnimationEnd);
+                     isLogout = false;
+                  }
+               });
                const mainLinkElement = document.getElementById('main-link');
 
 

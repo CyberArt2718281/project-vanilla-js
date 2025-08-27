@@ -2,6 +2,9 @@
 @use "variables/variables.scss" as vars;
 @use "mix/mix.scss" as mix;
 
+
+
+
 body {
   font-family: vars.$font-roboto;
   box-sizing: border-box;
@@ -27,7 +30,7 @@ body {
       padding: 0;
     }
     width: 219px;
-    background: #FFFFFF;
+    background: #F5F5F5;
 
     .logo {
       img{
@@ -234,11 +237,70 @@ body {
   }
 
   .content-wrapper {
+    background: #F5F5F5;
     padding: 100px 94px 0 29px;
   }
 }
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 18px;
+  color: #666;
+}
+.logout{
+  top:20px;
+  width:178px !important;
+  border-radius: 5px;
+  outline: none;
+  text-decoration: none;
+  color: vars.$white;
+  transition: all .2s;
+  display:none;
+  align-items: center;
+  justify-content: center;
+  left:20px;
+  background: vars.$background-hover-btn;
+  animation: animLogout .2s ease-in-out forwards;
+  opacity: 0;
+  transform: translateY(20px);
 
+  &:hover{
+    background: vars.$background-link-delete;
+    color: vars.$white;
+  }
 
+  &.logout-hiding {
+    animation: animLogoutExit .2s ease-in-out forwards;
+  }
+}
+
+#profile-toggle{
+  cursor: pointer;
+}
+
+@keyframes animLogout {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes animLogoutExit {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
 
 .dropdown-menu{
   padding: 0;

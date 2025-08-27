@@ -52,7 +52,7 @@
 
   .login-block {
     .account-sign-up-text {
-      @include mix.font-bold;
+      @include mix.font-regular;
       font-size: 12px;
 
       .link {

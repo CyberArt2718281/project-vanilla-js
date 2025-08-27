@@ -38,13 +38,11 @@ export class ActivateUi {
       const mainLink = document.getElementById('main-link');
       const cacheLink = document.getElementById('cache-link');
 
-      // Сбрасываем все активные состояния
       allLinks.forEach(link => {
          link.classList.remove('active');
          link.classList.remove('active-select');
       });
 
-      // Восстанавливаем стандартные классы для основных ссылок
       if (mainLink) {
          mainLink.classList.add('nav-link');
          mainLink.classList.remove('nav-link-disabled');
@@ -67,7 +65,6 @@ export class ActivateUi {
             menuCollapse.classList.remove('d-none');
          }
 
-         // Блокируем основные ссылки при открытом меню категорий
          if (mainLink) {
             mainLink.classList.remove('nav-link');
             mainLink.classList.add('nav-link-disabled');
@@ -77,31 +74,37 @@ export class ActivateUi {
             cacheLink.classList.add('nav-link-disabled');
          }
 
-         // Активируем родительский элемент
          const parentLink = document.querySelector(`.menu-collapse-link[href="${parentRoute}"]`);
          if (parentLink) {
             parentLink.classList.add('active-select');
          }
 
-         // Активируем конкретный маршрут если он существует
          const targetLink = document.querySelector(`.menu-collapse-link[href="${route.route}"]`);
          if (targetLink) {
             targetLink.classList.add('active-select');
          }
 
       } else if (isIncomeExpenses) {
-         // Для income-expenses и его дочерних страниц активируем cache-link
+         if (mainLink) {
+            mainLink.classList.remove('nav-link');
+            mainLink.classList.add('nav-link-disabled');
+         }
+
          if (cacheLink) {
             cacheLink.classList.add('active');
          }
 
-         // Активируем конкретный маршрут если он существует
          const targetLink = document.querySelector(`.nav-link[href="${route.route}"]`);
          if (targetLink) {
             targetLink.classList.add('active');
          }
 
       } else {
+         if (cacheLink) {
+            cacheLink.classList.remove('nav-link');
+            cacheLink.classList.add('nav-link-disabled');
+         }
+
          if (selectNavBar) {
             selectNavBar.classList.remove('active');
          }
@@ -110,7 +113,6 @@ export class ActivateUi {
             menuCollapse.classList.add('d-none');
          }
 
-         // Активируем соответствующую ссылку
          allLinks.forEach(link => {
             const href = link.getAttribute('href');
             if (href === route.route) {
@@ -119,6 +121,4 @@ export class ActivateUi {
          });
       }
    }
-
-
 }

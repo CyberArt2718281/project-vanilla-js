@@ -2,13 +2,25 @@
 @use "variables/variables.scss" as var;
 
 
+.input-form-select{
+  margin-bottom: 0;
+  @include mix.font-regular;
+  font-size: 15px;
+  width: 397px;
+  height: 38px;
+  color: var.$color-input;
+  border: 1px solid var.$border-color-form;
+  border-radius: 4px;
+  padding: 7px 0 7px 13px;
+  outline: none;
 
+}
 
 @media screen and (max-width: 430px){
   .title{
     font-size: 25px !important;
   }
-  input{
+  input, .input-form-select{
     width: 250px !important;
   }
   .process-links{
