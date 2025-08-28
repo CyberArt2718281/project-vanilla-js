@@ -1,21 +1,25 @@
-<div class="income">
+<div class="edit">
   <div class="header">
     <h1 class="title">Редактирование категории доходов</h1>
   </div>
   <div class="input-and-buttons">
+    <span class="input-error mt-1 text-danger mb-2" id="input-error-name">
+              Введите название
+          </span>
     <input
       type="text"
-      id="passwordInput"
-      name="passwordInput"
+      id="nameInput"
+      name="nameInput"
       class="input-form"
-      placeholder="Зарплата"
+      placeholder="Название..."
     />
+
     <div class="process-links">
-      <a
-        href="/income"
-        class="edit-link"
+      <button
+        class="edit-link border-0"
+        id="saveButton"
       >Сохранить
-      </a>
+      </button>
       <a
         href="/income"
         class="canceled-link"

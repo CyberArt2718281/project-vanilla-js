@@ -11,11 +11,11 @@
   white-space: nowrap;
   flex-wrap: wrap;
   margin-bottom: 140px;
-
+  background: transparent;
   button {
     width: 100px;
     padding: 9px 12px;
-
+    background: transparent;
 
     border: 1px solid var.$date-color;
     border-radius: 4px;

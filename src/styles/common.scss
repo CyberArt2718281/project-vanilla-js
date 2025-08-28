@@ -22,15 +22,16 @@ body {
 }
 
 .wrapper {
-
+  background: vars.$white !important;
   .main-sidebar {
     border-right: 1px solid vars.$background;
+    width: 219px;
+    background: vars.$white !important;
     .sidebar {
       position: relative;
       padding: 0;
     }
-    width: 219px;
-    background: #F5F5F5;
+
 
     .logo {
       img{
@@ -186,7 +187,7 @@ body {
         width: 226px;
         top: 41px;
         height: 1px;
-        background: #D9D9D9;
+        background: #D9D9D9 !important;
         left: 0;
       }
 
@@ -237,7 +238,7 @@ body {
   }
 
   .content-wrapper {
-    background: #F5F5F5;
+    background: #ffffff !important;
     padding: 100px 94px 0 29px;
   }
 }

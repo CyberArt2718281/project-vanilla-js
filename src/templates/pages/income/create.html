@@ -1,21 +1,28 @@
-<div class="income">
+<div class="create">
   <div class="header">
     <h1 class="title">Создание категории доходов</h1>
   </div>
   <div class="input-and-buttons">
-    <input
-      type="text"
-      id="passwordInput"
-      name="passwordInput"
-      class="input-form"
-      placeholder="Название..."
-    />
+    <div class="d-flex flex-column">
+       <span class="input-error mt-1 text-danger mb-2" id="input-error-name">
+              Введите название
+          </span>
+      <input
+        type="text"
+        id="nameInput"
+        class="input-form"
+        placeholder="Название..."
+      />
+
+    </div>
+
+
     <div class="process-links">
-      <a
-        href="/income"
+      <button
         class="edit-link"
+        id="saveButton"
       >Сохранить
-      </a>
+      </button>
       <a
         href="/income"
         class="canceled-link"

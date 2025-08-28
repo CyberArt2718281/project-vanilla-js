@@ -1,35 +1,37 @@
 import {AuthUtils} from "../../utils/auth-utils";
 import {ValidationUtils} from "../../utils/validation-utils";
 import {AuthService} from "../../services/auth-service";
+import {KeyboardUtils} from "../../utils/keyboardUtils";
 
 export class Login {
    constructor(openNewRoute) {
       this.openNewRoute = openNewRoute;
-
+      this.Loginbtn = document.getElementById('login-btn');
       if (AuthUtils.getAuthInfo(AuthUtils.accessTokenKey)) {
          return this.openNewRoute('/')
       }
-
       this.findElements();
+      this.commonErrorElement.style.display = 'none';
       this.validations = [{
          element: this.emailElement,
          options: {pattern: /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i}
       }, {element: this.passwordElement},]
-      document.getElementById('process-button').addEventListener('click', this.login.bind(this));
+      KeyboardUtils.setEnterHandler(() => {
+         this.login().then();
+      });
+      this.Loginbtn.addEventListener('click', this.login.bind(this));
 
    }
 
    findElements() {
-      this.emailElement = document.getElementById('email');
-      this.passwordElement = document.getElementById('password');
-      this.rememberElement = document.getElementById('remember');
-      this.commonErrorElement = document.getElementById('common-error');
-
+      this.emailElement = document.getElementById('emailInput');
+      this.passwordElement = document.getElementById('passwordInput');
+      this.rememberElement = document.getElementById('rememberInput');
+      this.commonErrorElement = document.getElementById('input-error-common');
    }
 
 
    async login() {
-      this.commonErrorElement.style.display = 'none';
       if (ValidationUtils.validateForm(this.validations)) {
          const result = await AuthService.login({
             email: this.emailElement.value,
@@ -39,12 +41,9 @@ export class Login {
 
          if (result.hasOwnProperty('message')) {
             this.commonErrorElement.style.display = 'block';
-            this.commonErrorElement.innerText = result.message;
             return;
          }
-         AuthUtils.setAuthInfo(result.accessToken, result.refreshToken, {
-            id: result.id, name: result.name,
-         });
+         AuthUtils.setUserInfo(result);
 
          this.openNewRoute('/')
       }

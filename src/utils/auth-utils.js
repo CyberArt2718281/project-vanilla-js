@@ -57,4 +57,9 @@ export class AuthUtils {
     return result;
   }
 
+  static setUserInfo(result) {
+    this.setAuthInfo(result.tokens.accessToken, result.tokens.refreshToken, {
+      id: result.user.id, name: result.user.name
+    });
+  }
 }

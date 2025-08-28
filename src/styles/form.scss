@@ -85,6 +85,7 @@
       }
 
       .input-error {
+        display: none;
         @include mix.font-regular;
         font-size: 15px;
 

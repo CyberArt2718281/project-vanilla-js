@@ -1,6 +1,8 @@
 import {AuthUtils} from "../../utils/auth-utils";
 import {ValidationUtils} from "../../utils/validation-utils";
 import {AuthService} from "../../services/auth-service";
+import {CommonUtils} from "../../utils/common-utils";
+import {KeyboardUtils} from "../../utils/keyboardUtils";
 
 export class SignUp {
    constructor(openNewRoute) {
@@ -11,34 +13,37 @@ export class SignUp {
       }
 
       this.findElements();
-
-      this.validations = [{element: this.nameElement}, {element: this.lastNameElement}, {
+      this.sugnUpBtn = document.getElementById('btn-sign-up')
+      this.commonErrorElement.style.display = 'none';
+      this.validations = [{element: this.nameElement, options: {pattern: /^[A-ZА-ЯЁ][a-zA-Zа-яёА-ЯЁ]+\s*$/g}}, {element: this.lastNameElement,options: {pattern: /^[A-ZА-ЯЁ][a-zA-Zа-яёА-ЯЁ]+\s*$/g}}, {
          element: this.repeatPasswordElement,
          options: {compareTo: this.passwordElement}
-      }, {element: this.agreeElement, options: {checked: this.agreeElement}}, {
+      },  {
          element: this.emailElement,
          options: {pattern: /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i}
       }, {
          element: this.passwordElement,
          options: {pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/}
       },]
-
-      document.getElementById('process-button').addEventListener('click', this.signUp.bind(this));
+      KeyboardUtils.setEnterHandler(() => {
+         this.signUp().then();
+      });
+      this.sugnUpBtn.addEventListener('click', this.signUp.bind(this));
    }
 
    findElements() {
-      this.nameElement = document.getElementById('name');
-      this.lastNameElement = document.getElementById('last-name');
-      this.emailElement = document.getElementById('email');
-      this.passwordElement = document.getElementById('password');
-      this.repeatPasswordElement = document.getElementById('repeat-password');
-      this.agreeElement = document.getElementById('agree');
-      this.commonErrorElement = document.getElementById('common-error');
+      this.nameElement = document.getElementById('nameInput');
+      this.lastNameElement = document.getElementById('last-nameInput');
+      this.emailElement = document.getElementById('emailInput');
+      this.passwordElement = document.getElementById('passwordInput');
+      this.repeatPasswordElement = document.getElementById('repeat-passwordInput');
+      this.commonErrorElement = document.getElementById('input-error-common');
    }
 
 
+
    async signUp() {
-      this.commonErrorElement.style.display = 'none';
+
 
       for (let i = 0; i < this.validations.length; i++) {
          if (this.validations[i].element.value === this.repeatPasswordElement) {
@@ -50,20 +55,24 @@ export class SignUp {
 
 
          const result = await AuthService.signup({
-            name: this.nameElement.value,
-            lastName: this.lastNameElement.value,
+            name: this.nameElement.value.trim(),
+            lastName: this.lastNameElement.value.trim(),
             email: this.emailElement.value,
             password: this.passwordElement.value,
+            passwordRepeat: this.repeatPasswordElement.value,
          })
 
          if (result.hasOwnProperty('message')) {
             this.commonErrorElement.style.display = 'block';
-            this.commonErrorElement.innerText = result.message;
+            this.commonErrorElement.innerText = CommonUtils.translateMessage(result.message);
             return;
          }
-         AuthUtils.setAuthInfo(result.accessToken, result.refreshToken, {
-            id: result.id, name: result.name,
+         const resultLogin = await AuthService.login({
+            email: this.emailElement.value,
+            password: this.passwordElement.value,
+            rememberMe: true,
          });
+         AuthUtils.setUserInfo(resultLogin);
 
          this.openNewRoute('/')
       }

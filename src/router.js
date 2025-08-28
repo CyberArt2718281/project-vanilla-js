@@ -11,6 +11,10 @@ import {CreateIncome} from "./components/income/create";
 import {EditIncomesExpenses} from "./components/income-expenses/edit";
 import {CreateIncomesExpenses} from "./components/income-expenses/create";
 import {IncomeExpenses} from "./components/income-expenses/income-expenses";
+import {Login} from "./components/auth/login";
+import {SignUp} from "./components/auth/sign-up";
+import {Logout} from "./components/auth/logout";
+import {BalanceService} from "./services/balance-service";
 
 export class Router {
    constructor() {
@@ -93,7 +97,7 @@ export class Router {
             filepathTemplate: '/templates/pages/expenses/create.html',
             useLayout: '/templates/layout.html',
             load: () => {
-               // new CreateExpense(this.openNewRoute.bind(this))
+               new CreateExpense(this.openNewRoute.bind(this))
             },
             styles: [
                'create.css'
@@ -165,7 +169,7 @@ export class Router {
             filepathTemplate: '/templates/pages/auth/login.html',
             useLayout: false,
             load: () => {
-               // new Login(this.openNewRoute.bind(this))
+               new Login(this.openNewRoute.bind(this))
             },
             styles: [
                'form.css'
@@ -177,7 +181,7 @@ export class Router {
             useLayout: false,
             filepathTemplate: '/templates/pages/auth/sign-up.html',
             load: () => {
-               // new SignUp(this.openNewRoute.bind(this))
+               new SignUp(this.openNewRoute.bind(this))
             },
             unload: () => {
             },
@@ -187,7 +191,7 @@ export class Router {
          },
          {
             route: '/logout', load: () => {
-               // new Logout(this.openNewRoute.bind(this))
+               new Logout(this.openNewRoute.bind(this))
             }
          }
       ]
@@ -369,14 +373,20 @@ export class Router {
                   }
                });
 
-               // this.profileElement = document.getElementById('fullName');
-               // if (!this.userName) {
-               //    const userInfo = JSON.parse(AuthUtils.getAuthInfo(AuthUtils.userInfoKey));
-               //    if (userInfo && userInfo.name) {
-               //       this.userName = userInfo.name;
-               //    }
-               // }
-               // this.profileElement.innerText = this.userName;
+               this.profileElement = document.getElementById('userFullName');
+               this.userName = '';
+               if (!this.userName) {
+                  const userInfo = JSON.parse(AuthUtils.getAuthInfo(AuthUtils.userInfoKey));
+                  if (userInfo && userInfo.name ) {
+                     this.userName = userInfo.name;
+                  }
+               }
+
+               const balance = await BalanceService.getBalance()
+               this.balance = balance.balance ? balance.balance : 0;
+
+               document.getElementById('amount-layout').innerText = `${this.balance}$`
+               this.profileElement.innerText = this.userName;
                if (newRoute.route === '/income' || newRoute.route === '/expenses') {
                   selectNevBarElement.classList.add('active');
                   menuSelectNavBar.classList.remove('d-none');

@@ -2,9 +2,15 @@
 @use "variables/variables.scss" as var;
 
 
+@media screen and (max-width: 375px) {
+  .income-item{
+    width: 300px !important;
+  }
+}
 .added-link {
   max-width: 352px;
   min-width: 253px;
+  height: 121px;
 }
 
 body.popup-open::before {
@@ -52,7 +58,7 @@ body.popup-open::before {
   }
 
   .income-item {
-    max-width: 352px;
+    width: 352px;
     padding: 20px;
     border-radius: 12px;
     border: 1px solid var.$border-color-form;
@@ -143,6 +149,8 @@ body.popup-open::before {
     gap: 12px;
 
     .success-delete-link {
+      border: none;
+      outline: none;
       border-radius: 5px;
       text-align: center;
       padding: 12px 16px;

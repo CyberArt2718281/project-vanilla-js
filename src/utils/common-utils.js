@@ -20,6 +20,30 @@ export class CommonUtils {
       return levelHtml;
    }
 
+   static translateMessage(msg) {
+      const errorTranslations = {
+         // Ошибки валидации
+         'Validation error': 'Ошибка валидации',
+         'User with given email already exist': 'Пользователь с таким email уже существует',
+         'Invalid email or password': 'Неверный email или пароль',
+         'Internal Server Error': 'Внутренняя ошибка сервера',
+
+         // Ошибки полей (из validation array)
+         'name is required': 'Имя обязательно для заполнения',
+         'lastName is required': 'Фамилия обязательна для заполнения',
+         'email is required': 'Email обязателен для заполнения',
+         'password is required': 'Пароль обязателен для заполнения',
+         'refreshToken is required': 'Refresh token обязателен',
+
+         // Дополнительные возможные ошибки
+         'Logged Out Successfully': 'Выход выполнен успешно'
+      };
+
+      return errorTranslations[msg] || msg;
+
+
+   }
+
    static getsStatusHtml(status) {
       const info = {
          name: '',
@@ -57,14 +81,14 @@ export class CommonUtils {
    }
 
    static convertedDate(dateParam) {
-      if(dateParam){
+      if (dateParam) {
          const date = new Date(dateParam);
-         return  date.toLocaleString('ru-RU');
+         return date.toLocaleString('ru-RU');
       }
       return null;
    }
 
-   static generateGridToolsColumn(entity, id){
+   static generateGridToolsColumn(entity, id) {
       return `<div class="${entity}-tools">
       <a href="/${entity}/view?id=${id}" class="fas fa-eye"></a>
       <a href="/${entity}/edit?id=${id}" class="fas fa-edit"></a>

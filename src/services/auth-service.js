@@ -21,4 +21,5 @@ export class AuthService {
    static async logout(data) {
       await HttpUtils.request('logout', false, "POST", data);
    }
+
 }
