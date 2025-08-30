@@ -1,16 +1,24 @@
 import {IncomesService} from "../../services/incomes-service";
 import {ValidationUtils} from "../../utils/validation-utils";
 import {KeyboardUtils} from "../../utils/keyboardUtils";
+import {AuthUtils} from "../../utils/auth-utils";
 
 export class CreateIncome {
    constructor(openNewRoute){
       this.openNewRoute = openNewRoute;
-      this.findElements();
-      this.nameValidation  = [{element: this.inputNameCategory}]
-      KeyboardUtils.setEnterHandler(() => {
-         this.createIncome().then();
+      AuthUtils.initializeAuthentication(this.openNewRoute).then(isAuthenticated =>{
+         if(!isAuthenticated){
+            return;
+         }
+
+         this.findElements();
+         this.nameValidation  = [{element: this.inputNameCategory}]
+         KeyboardUtils.setEnterHandler(() => {
+            this.createIncome().then();
+         });
+         this.saveButton.addEventListener('click', this.createIncome.bind(this));
       });
-      this.saveButton.addEventListener('click', this.createIncome.bind(this));
+
    }
 
    findElements(){

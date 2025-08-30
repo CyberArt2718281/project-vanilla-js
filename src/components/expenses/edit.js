@@ -1,22 +1,31 @@
 import {ValidationUtils} from "../../utils/validation-utils";
 import {ExpensesService} from "../../services/expenses-service";
 import {KeyboardUtils} from "../../utils/keyboardUtils";
+import {AuthUtils} from "../../utils/auth-utils";
 
 export class EditExpense {
    constructor(openNewRoute) {
       this.openNewRoute = openNewRoute;
-      this.findElements();
-      this.userId = new URLSearchParams(window.location.search).get('id');
-      if (!this.userId) {
-         return this.openNewRoute('/');
-      }
-      this.getIncome().then();
-      this.originInputValue = null;
-      this.nameValidation = [{element: this.inputNameCategory}]
-      KeyboardUtils.setEnterHandler(() => {
-         this.saveExpenseProcess().then();
+      AuthUtils.initializeAuthentication(this.openNewRoute).then(isAuthenticated =>{
+         if(!isAuthenticated){
+            return;
+         }
+
+         this.findElements();
+         this.userId = new URLSearchParams(window.location.search).get('id');
+         if (!this.userId) {
+            return this.openNewRoute('/');
+         }
+         this.getIncome().then();
+         this.originInputValue = null;
+         this.nameValidation = [{element: this.inputNameCategory}]
+         KeyboardUtils.setEnterHandler(() => {
+            this.saveExpenseProcess().then();
+         });
+         this.saveButton.addEventListener('click', this.saveExpenseProcess.bind(this));
       });
-      this.saveButton.addEventListener('click', this.saveExpenseProcess.bind(this));
+
+
    }
 
    findElements() {

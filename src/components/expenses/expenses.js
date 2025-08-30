@@ -1,15 +1,23 @@
 import {ExpensesService} from "../../services/expenses-service";
 import {KeyboardUtils} from "../../utils/keyboardUtils";
+import {AuthUtils} from "../../utils/auth-utils";
 
 
 export class Expense {
    constructor(openNewRoute) {
       this.openNewRoute = openNewRoute;
-      this.findElements();
-      this.showContainers().then();
+      AuthUtils.initializeAuthentication(this.openNewRoute).then(isAuthenticated =>{
+         if(!isAuthenticated){
+            return;
+         }
+
+         this.findElements();
+         this.showContainers().then();
+      });
+
    }
 
-   async getIncomesData(){
+   async getExpensesData(){
       const response = await ExpensesService.getExpenses();
       if(response.error){
          alert(response.error);
@@ -30,7 +38,7 @@ export class Expense {
    }
 
    async showContainers(){
-      const incomesData = await this.getIncomesData();
+      const incomesData = await this.getExpensesData();
       if(incomesData && incomesData.length > 0){
          for (let i = incomesData.length-1; i >= 0 ; i--) {
             const itemIncome = document.createElement("div");
