@@ -9,7 +9,7 @@ export class Expense {
       this.showContainers().then();
    }
 
-   async getIncomesData(){
+   async getExpensesData(){
       const response = await ExpensesService.getExpenses();
       if(response.error){
          alert(response.error);
@@ -30,7 +30,7 @@ export class Expense {
    }
 
    async showContainers(){
-      const incomesData = await this.getIncomesData();
+      const incomesData = await this.getExpensesData();
       if(incomesData && incomesData.length > 0){
          for (let i = incomesData.length-1; i >= 0 ; i--) {
             const itemIncome = document.createElement("div");

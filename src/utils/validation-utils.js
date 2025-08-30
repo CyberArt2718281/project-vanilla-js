@@ -38,6 +38,10 @@ export class ValidationUtils {
             condition = element.value && element.value === options.compareTo.value;
          } else if (options.hasOwnProperty('checked')) {
             condition = element.checked;
+         } else if (options.hasOwnProperty('amount')) {
+            condition = parseInt(element.value) > 0;
+         } else if (options.hasOwnProperty('date')) {
+            condition = this.validateDatePattern(element.value);
          }
       }
 
@@ -48,4 +52,26 @@ export class ValidationUtils {
          return false;
       }
    }
+   static validateDatePattern(dateString) {
+      if (!dateString) return false;
+
+      const datePattern = /^\d{4}\.\d{2}\.\d{2}$/;
+      if (!datePattern.test(dateString)) {
+         return false;
+      }
+
+      const parts = dateString.split('.');
+      const year = parseInt(parts[0]);
+      const month = parseInt(parts[1]);
+      const day = parseInt(parts[2]);
+
+      if (year < 1900 || year > 2100) return false;
+      if (month < 1 || month > 12) return false;
+
+      const daysInMonth = new Date(year, month, 0).getDate();
+      if (day < 1 || day > daysInMonth) return false;
+
+      return true;
+   }
 }
+
