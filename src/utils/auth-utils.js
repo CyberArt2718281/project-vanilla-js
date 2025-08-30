@@ -45,7 +45,7 @@ export class AuthUtils {
       if(response && response.status === 200) {
         const tokens = await response.json();
         if(tokens && !tokens.error){
-          this.setAuthInfo(tokens.accessToken, tokens.refreshToken);
+          this.setAuthInfo(tokens.tokens.accessToken, tokens.tokens.refreshToken);
           result = true;
         }
 
@@ -62,4 +62,38 @@ export class AuthUtils {
       id: result.user.id, name: result.user.name
     });
   }
+
+  static async checkAuthentication() {
+    const authInfo = this.getAuthInfo();
+
+    // Если нет refreshToken - не аутентифицирован
+    if (!authInfo[this.refreshTokenKey]) {
+      return false;
+    }
+
+    // Если есть refreshToken, но нет accessToken - пытаемся обновить
+    if (!authInfo[this.accessTokenKey] && authInfo[this.refreshTokenKey]) {
+      return await this.updateRefreshToken();
+    }
+
+    // Если есть оба токена - считаем аутентифицированным
+    if (authInfo[this.accessTokenKey] && authInfo[this.refreshTokenKey]) {
+      return true;
+    }
+
+    // Любой другой случай - не аутентифицирован
+    return false;
+  }
+
+  static async initializeAuthentication(openNewRouteCallback) {
+    const isAuthenticated = await this.checkAuthentication();
+
+    if (!isAuthenticated) {
+      openNewRouteCallback('/login');
+      return false;
+    }
+
+    return true;
+  }
+
 }

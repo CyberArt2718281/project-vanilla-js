@@ -13,7 +13,9 @@ export class BalanceService {
 
       if (result.error || !result.response) {
          returnObject.error = 'Возникла ошибка при запросе баланса';
-         returnObject.redirect = '/login';
+         if (result.redirect) {
+            returnObject.redirect = result.redirect;
+         }
          return returnObject;
       }
 

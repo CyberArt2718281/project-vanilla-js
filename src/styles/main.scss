@@ -1,6 +1,6 @@
 @use "mix/mix.scss" as mix;
 @use "variables/variables.scss" as var;
-
+@use "income-expenses.scss";
 
 
 .tabs {
@@ -11,11 +11,9 @@
   white-space: nowrap;
   flex-wrap: wrap;
   margin-bottom: 140px;
-  background: transparent;
   button {
     width: 100px;
     padding: 9px 12px;
-    background: transparent;
 
     border: 1px solid var.$date-color;
     border-radius: 4px;
@@ -76,8 +74,7 @@ h3 {
     height: 250px !important;
     max-height: 416px !important;
     max-width: 100% !important;
-    display: block !important;
-    width: 249px ;
+
   }
   .chart-income, .chart-expenses{
     padding: 0 !important;

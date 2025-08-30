@@ -4,53 +4,51 @@
   </div>
   <div class="group">
     <div class="inputs d-flex flex-column">
-
-      <select
-        type="text"
-        id="typeInput"
-        name="typeInput"
-        class="input-form-select"
-      >
-        <option value="income">Доходы</option>
-        <option value="expenses">Расходы</option>
+      <select type="text" id="typeInput" name="typeInput" class="input-form-select">
+        <option value="income">доход</option>
+        <option value="expense">расход</option>
       </select>
-      <input
-        type="text"
-        id="salaryInput"
-        name="salaryInput"
-        class="input-form"
-        placeholder="Категория..."
-      />
+
+      <select type="text" id="categoryInput" name="categoryInput" class="input-form-select">
+
+      </select>
+
+      <span class="input-error m-0 text-danger " id="input-error-amount">
+              Введите сумму
+          </span>
       <input
         type="number"
         id="amountInput"
         name="amountInput"
         class="input-form"
-        placeholder="Сумма в $..."
+        placeholder="Сумма..."
       />
+      <span class="input-error m-0 text-danger " id="input-error-date">
+              Введите дату
+          </span>
       <input
         type="text"
         id="dateInput"
         name="dateInput"
         class="input-form"
-        placeholder="Дата..."
       />
-      <input
-        type="text"
+
+      <textarea
         id="commentInput"
         name="commentInput"
-        class="input-form"
-        placeholder="Комментарий"
-      />
+        class="input-form text-area"
+        placeholder="Комментарий..."
+      ></textarea>
 
     </div>
 
     <div class="process-links">
-      <a
+      <button
         href="/income-expenses"
-        class="edit-link"
+        class="edit-link border-0"
+        id="editBtn"
       >Сохранить
-      </a>
+      </button>
       <a
         href="/income-expenses"
         class="canceled-link"

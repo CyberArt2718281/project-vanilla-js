@@ -1,11 +1,20 @@
 import {IncomesService} from "../../services/incomes-service";
 import {KeyboardUtils} from "../../utils/keyboardUtils";
+import {AuthUtils} from "../../utils/auth-utils";
 
 export class Income {
    constructor(openNewRoute) {
       this.openNewRoute = openNewRoute;
-      this.findElements();
-      this.showContainers().then();
+      AuthUtils.initializeAuthentication(this.openNewRoute).then(isAuthenticated =>{
+         if(!isAuthenticated){
+            return;
+         }
+
+         this.findElements();
+         this.showContainers().then();
+      });
+
+
    }
 
    async getIncomesData(){
