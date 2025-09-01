@@ -13,7 +13,9 @@ export class ExpensesService {
 
       if (result.error) {
          returnObject.error = 'Возникла ошибка при запросе расходов';
-         returnObject.redirect = '/login';
+         if (result.redirect) {
+            returnObject.redirect = result.redirect;
+         }
          return returnObject;
       }
 
@@ -33,7 +35,9 @@ export class ExpensesService {
 
       if (result.error || !result.response) {
          returnObject.error = 'Возникла ошибка при запросе расхода';
-         returnObject.redirect = '/login';
+         if (result.redirect) {
+            returnObject.redirect = result.redirect;
+         }
          return returnObject;
       }
 
@@ -52,7 +56,9 @@ export class ExpensesService {
 
       if (result.error || !result.response) {
          returnObject.error = 'Возникла ошибка при создании расхода';
-         returnObject.redirect = '/login';
+         if (result.redirect) {
+            returnObject.redirect = result.redirect;
+         }
          return returnObject;
       }
 
@@ -69,7 +75,9 @@ export class ExpensesService {
 
       if (result.error) {
          returnObject.error = 'Возникла ошибка при удалении расхода';
-         returnObject.redirect = '/login';
+         if (result.redirect) {
+            returnObject.redirect = result.redirect;
+         }
          return returnObject;
       }
       return returnObject;
@@ -86,7 +94,9 @@ export class ExpensesService {
 
       if (result.error || !result.response) {
          returnObject.error = 'Возникла ошибка при редактировании расхода';
-         returnObject.redirect = '/login';
+         if (result.redirect) {
+            returnObject.redirect = result.redirect;
+         }
          return returnObject;
       }
       return returnObject;

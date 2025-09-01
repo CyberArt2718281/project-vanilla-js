@@ -18,7 +18,81 @@
     font-size: 14px !important;
   }
 }
+.active{
+  color: var.$white !important;
+  background: var.$date-color;
+}
 
+.date-input {
+  padding: 8px 12px;
+  border: 2px solid #e9ecef;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: white;
+  color: #495057;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 140px;
+}
+.date-input:hover {
+  border-color: var.$border-color-form;
+
+}
+.date-input:focus {
+  outline: none;
+  border-color: var.$border-color-form;
+
+}
+.save-interval-btn {
+  width: unset !important;
+}
+
+.save-interval-btn:hover {
+  background-color: var.$background-success  !important;
+  color: var.$white !important;
+}
+.date-input::-webkit-datetime-edit-fields-wrapper {
+  padding: 2px;
+}
+
+.date-input::-webkit-datetime-edit-text {
+  color: #6c757d;
+  padding: 0 2px;
+}
+
+.date-current {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  margin-left: 10px;
+  font-size: 14px;
+}
+.date-input::-webkit-calendar-picker-indicator {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23007bff" viewBox="0 0 16 16"><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z"/><path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4z"/></svg>');
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 3px;
+}
+@media (max-width: 768px) {
+  .date-current {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .date-input {
+    min-width: auto;
+    width: 100%;
+  }
+
+  .save-interval-btn {
+    margin-left: 0;
+    width: 100%;
+  }
+}
 .tabs {
 
   margin-top: 60px;
@@ -53,6 +127,7 @@
       color: var.$white;
       background: var.$date-color;
     }
+
   }
 
   .date-current {
@@ -131,11 +206,12 @@
     }
 
     .expense-color {
-      color: var.$background-success;
+
+      color: var.$background-link-delete ;
     }
 
     .income-color {
-      color: var.$background-link-delete;
+      color: var.$background-success;
     }
 
     .table-item {
@@ -496,4 +572,33 @@
       }
     }
   }
+}
+
+th {
+  cursor: pointer;
+  position: relative;
+}
+
+th:hover {
+  background-color: #f0f0f0;
+}
+
+.sortable::after {
+  content: '↕';
+  position: absolute;
+  right: 10px;
+  opacity: 0.3;
+  font-size: 12px;
+}
+th:first-child,th:last-child,th:nth-child(6){
+  cursor: unset !important;
+}
+
+th:not(:last-child):not(:nth-child(6)):hover::after {
+  opacity: 0.8;
+}
+
+
+th:not(:last-child):hover::after {
+  opacity: 0.8;
 }

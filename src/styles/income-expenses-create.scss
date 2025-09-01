@@ -78,3 +78,21 @@ input {
     }
   }
 }
+
+.input-error {
+  display: none;
+  @include mix.font-regular;
+  font-size: 15px;
+}
+
+.text-area{
+  width:  397px !important;
+  @include mix.font-regular;
+  font-size: 15px;
+  height: 38px;
+  color: var.$color-input;
+  border: 1px solid var.$border-color-form;
+  border-radius: 4px;
+  padding: 7px 0 7px 13px;
+  outline: none;
+}

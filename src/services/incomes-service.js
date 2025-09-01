@@ -13,7 +13,9 @@ export class IncomesService {
 
       if (result.error) {
          returnObject.error = 'Возникла ошибка при запросе доходов';
-         returnObject.redirect = '/login';
+         if (result.redirect) {
+            returnObject.redirect = result.redirect;
+         }
          return returnObject;
       }
 
@@ -33,7 +35,9 @@ export class IncomesService {
 
       if (result.error || !result.response) {
          returnObject.error = 'Возникла ошибка при запросе дохода';
-         returnObject.redirect = '/login';
+         if (result.redirect) {
+            returnObject.redirect = result.redirect;
+         }
          return returnObject;
       }
 
@@ -52,7 +56,9 @@ export class IncomesService {
 
       if (result.error || !result.response) {
          returnObject.error = 'Возникла ошибка при создании дохода';
-         returnObject.redirect = '/login';
+         if (result.redirect) {
+            returnObject.redirect = result.redirect;
+         }
          return returnObject;
       }
 
@@ -69,7 +75,9 @@ export class IncomesService {
 
       if (result.error) {
          returnObject.error = 'Возникла ошибка при удалении дохода';
-         returnObject.redirect = '/login';
+         if (result.redirect) {
+            returnObject.redirect = result.redirect;
+         }
          return returnObject;
       }
       return returnObject;
@@ -86,7 +94,9 @@ export class IncomesService {
 
       if (result.error || !result.response) {
          returnObject.error = 'Возникла ошибка при редактировании дохода';
-         returnObject.redirect = '/login';
+         if (result.redirect) {
+            returnObject.redirect = result.redirect;
+         }
          return returnObject;
       }
       return returnObject;
