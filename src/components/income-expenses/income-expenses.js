@@ -6,8 +6,8 @@ import {AuthUtils} from "../../utils/auth-utils";
 export class IncomeExpenses {
    constructor(openNewRoute) {
       this.openNewRoute = openNewRoute;
-      AuthUtils.initializeAuthentication(this.openNewRoute).then(isAuthenticated =>{
-         if(!isAuthenticated){
+      AuthUtils.initializeAuthentication(this.openNewRoute).then(isAuthenticated => {
+         if (!isAuthenticated) {
             return;
          }
          this.findElements();
@@ -27,6 +27,7 @@ export class IncomeExpenses {
          this.toggleIntervalMode();
       });
    }
+
    toggleIntervalMode() {
       this.isIntervalMode = !this.isIntervalMode;
 
@@ -41,7 +42,7 @@ export class IncomeExpenses {
       const headers = document.querySelectorAll('thead th');
       headers.forEach((header, index) => {
 
-         if (index >= 5 || index === 6 || index===0) return;
+         if (index >= 5 || index === 6 || index === 0) return;
 
          header.style.cursor = 'pointer';
          header.addEventListener('click', () => {
@@ -49,13 +50,14 @@ export class IncomeExpenses {
          });
       });
    }
+
    sortTable(columnIndex) {
       if (!this.operationsData || this.operationsData.length === 0) return;
 
       const sortedData = [...this.operationsData].sort((a, b) => {
          let valueA, valueB;
 
-         switch(columnIndex) {
+         switch (columnIndex) {
             case 1:
                valueA = a.type === config.type.income ? 'доход' : 'расход';
                valueB = b.type === config.type.income ? 'доход' : 'расход';
@@ -100,39 +102,42 @@ export class IncomeExpenses {
       this.tableBodyElement.innerHTML = '';
 
       data.forEach((operation, index) => {
+
+         const trElement = document.createElement("tr");
+         trElement.classList.add("table-item");
+
+         const tdNumber = document.createElement("td");
+         tdNumber.classList.add("number");
+         tdNumber.textContent = `${index + 1}`;
+
+         const tdColor = document.createElement("td");
+         if (operation.type === config.type.income) {
+            tdColor.classList.add("income-color");
+            tdColor.textContent = 'доход';
+         } else {
+            tdColor.classList.add("expense-color");
+            tdColor.textContent = 'расход';
+         }
+
+         trElement.appendChild(tdNumber);
+         trElement.appendChild(tdColor);
          if(operation.category){
-            const trElement = document.createElement("tr");
-            trElement.classList.add("table-item");
-
-            const tdNumber = document.createElement("td");
-            tdNumber.classList.add("number");
-            tdNumber.textContent = `${index + 1}`;
-
-            const tdColor = document.createElement("td");
-            if(operation.type === config.type.income){
-               tdColor.classList.add("income-color");
-               tdColor.textContent = 'доход';
-            } else {
-               tdColor.classList.add("expense-color");
-               tdColor.textContent = 'расход';
-            }
-
-            trElement.appendChild(tdNumber);
-            trElement.appendChild(tdColor);
-
             trElement.insertCell().innerHTML = operation.category;
-            trElement.insertCell().innerHTML = operation.amount + "$";
-            trElement.insertCell().innerHTML = operation.date;
+         }else{
+            trElement.insertCell().innerHTML = 'Без категории';
+         }
+         trElement.insertCell().innerHTML = operation.amount + "$";
+         trElement.insertCell().innerHTML = operation.date;
 
-            if(operation.comment && operation.comment !== "null") {
-               trElement.insertCell().innerHTML = operation.comment;
-            } else {
-               trElement.insertCell().innerHTML = '';
-            }
+         if (operation.comment && operation.comment !== "null") {
+            trElement.insertCell().innerHTML = operation.comment;
+         } else {
+            trElement.insertCell().innerHTML = '';
+         }
 
-            const toolsElement = document.createElement("td");
-            toolsElement.classList.add("del-create");
-            toolsElement.innerHTML = `
+         const toolsElement = document.createElement("td");
+         toolsElement.classList.add("del-create");
+         toolsElement.innerHTML = `
          <button class="delete-link border-0" data-id="${operation.id}">
             <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                <path d="M4.5 5.5C4.77614 5.5 5 5.72386 5 6V12C5 12.2761 4.77614 12.5 4.5 12.5C4.22386 12.5 4 12.2761 4 12V6C4 5.72386 4.22386 5.5 4.5 5.5Z" fill="black"/>
@@ -147,16 +152,17 @@ export class IncomeExpenses {
             </svg>
          </a>
          `;
-            trElement.appendChild(toolsElement);
+         trElement.appendChild(toolsElement);
 
-            this.tableBodyElement.appendChild(trElement);
-         }
+         this.tableBodyElement.appendChild(trElement);
+
 
       });
 
       const deleteLinkElements = document.querySelectorAll('.delete-link');
       this.showPopup(deleteLinkElements);
    }
+
    showDateInputs() {
       // Создаем элементы для выбора дат
       const dateFromInput = document.createElement('input');
@@ -192,6 +198,7 @@ export class IncomeExpenses {
 
       this.intervalBtn.classList.add('active');
    }
+
    hideDateInputs() {
       const dateCurrentDiv = document.querySelector('.date-current');
       dateCurrentDiv.innerHTML = 'c <span id="dateFrom">Дата</span> по <span id="dateTo">Дата</span>';
@@ -199,6 +206,7 @@ export class IncomeExpenses {
       this.intervalBtn.classList.remove('active');
       this.isIntervalMode = false;
    }
+
    async saveInterval() {
       const dateFrom = document.getElementById('dateFromInput').value;
       const dateTo = document.getElementById('dateToInput').value;
@@ -220,15 +228,17 @@ export class IncomeExpenses {
          await this.showContainers(data);
       }
    }
-   async start(){
-      if(this.isAllBtn){
+
+   async start() {
+      if (this.isAllBtn) {
          this.allBtn.classList.add("active");
          const data = await this.getOperationsAllData();
          this.showContainers(data).then();
-      }else{
+      } else {
          this.allBtn.classList.remove("active");
       }
    }
+
    async getOperationsAllData() {
       const response = await OperationsService.getOperationsAll();
       if (response.error) {
@@ -237,6 +247,7 @@ export class IncomeExpenses {
       }
       return response.operations;
    }
+
    async getOperationsDayData() {
       const response = await OperationsService.getOperationsDay();
       if (response.error) {
@@ -245,6 +256,7 @@ export class IncomeExpenses {
       }
       return response.operations;
    }
+
    async getOperationsMonthData() {
       const response = await OperationsService.getOperationsMonth();
       if (response.error) {
@@ -253,6 +265,7 @@ export class IncomeExpenses {
       }
       return response.operations;
    }
+
    async getOperationsWeekData() {
       const response = await OperationsService.getOperationsWeek();
       if (response.error) {
@@ -261,6 +274,7 @@ export class IncomeExpenses {
       }
       return response.operations;
    }
+
    async getOperationsYearData() {
       const response = await OperationsService.getOperationsYear();
       if (response.error) {
@@ -269,6 +283,7 @@ export class IncomeExpenses {
       }
       return response.operations;
    }
+
    async getOperationsIntervalData(dateFrom, dateTo) {
       const response = await OperationsService.getOperationsInterval(dateFrom, dateTo);
       if (response.error) {
@@ -294,7 +309,7 @@ export class IncomeExpenses {
                return; // Для интервала данные загружаются после выбора дат
             }
             let data;
-            switch(btn.id) {
+            switch (btn.id) {
                case 'day':
                   data = await this.getOperationsDayData();
                   break;
@@ -319,6 +334,7 @@ export class IncomeExpenses {
          });
       });
    }
+
    clearTable() {
       this.tableBodyElement.innerHTML = '';
    }
@@ -333,7 +349,6 @@ export class IncomeExpenses {
       this.weekhBtn = document.getElementById('week');
       this.dayBtn = document.getElementById('day');
       this.intervalBtn = document.getElementById('interval');
-
 
 
       this.confirmedDeleteElement = document.getElementById('confirmed-delete');

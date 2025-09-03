@@ -211,15 +211,14 @@ export class Main{
 
    createPieChart(operationsData) {
 
-      const incomeOperations = operationsData.filter(op => op.type === 'income' && op.category);
-
+      const incomeOperations = operationsData.filter(op => op.type === 'income');
       const incomeData = this.groupDataByCategory(incomeOperations);
 
-      const expenseOperations = operationsData.filter(op => op.type === 'expense' && op.category) ;
-
+      const expenseOperations = operationsData.filter(op => op.type === 'expense');
       const expenseData = this.groupDataByCategory(expenseOperations);
 
-      if (incomeData.labels.length > 0 && incomeData.amounts.length > 0 ) {
+
+      if (incomeData.labels.length > 0 && incomeData.amounts.length > 0 && incomeData.amounts.some(amount => amount > 0)) {
          this.createChart(
            this.pieChartCanvas,
            incomeData.labels,
@@ -231,7 +230,8 @@ export class Main{
          this.clearChart('pieChart');
       }
 
-      if (expenseData.labels.length > 0 && expenseData.amounts.length > 0) {
+
+      if (expenseData.labels.length > 0 && expenseData.amounts.length > 0 && expenseData.amounts.some(amount => amount > 0)) {
          this.createChart(
            this.pieChartCanvas2,
            expenseData.labels,
@@ -247,14 +247,17 @@ export class Main{
       const categories = {};
 
       operations.forEach(operation => {
-         if (!categories[operation.category]) {
-            categories[operation.category] = 0;
+         const category = operation.category || "Без категории";
+
+         if (!categories[category]) {
+            categories[category] = 0;
          }
-         categories[operation.category] += parseFloat(operation.amount);
+         categories[category] += parseFloat(operation.amount);
       });
 
       const sortedCategories = Object.entries(categories)
         .sort(([,a], [,b]) => b - a);
+
       return {
          labels: sortedCategories.map(([category]) => category),
          amounts: sortedCategories.map(([,amount]) => amount)
