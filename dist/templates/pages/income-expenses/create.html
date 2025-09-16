@@ -1,0 +1,59 @@
+<div class="income">
+  <div class="header">
+    <h1 class="title">Создание дохода/расхода</h1>
+  </div>
+  <div class="group">
+    <div class="inputs d-flex flex-column">
+      <select type="text" id="typeInput" name="typeInput" class="input-form-select">
+        <option value="income">доход</option>
+        <option value="expense">расход</option>
+      </select>
+
+      <select type="text" id="categoryInput" name="categoryInput" class="input-form-select">
+
+      </select>
+
+      <span class="input-error m-0 text-danger " id="input-error-amount">
+              Введите сумму
+          </span>
+      <input
+        type="number"
+        id="amountInput"
+        name="amountInput"
+        class="input-form"
+        placeholder="Сумма..."
+      />
+      <span class="input-error m-0 text-danger " id="input-error-date">
+              Введите дату
+          </span>
+      <input
+        type="text"
+        id="dateInput"
+        name="dateInput"
+        class="input-form"
+      />
+
+      <textarea
+        id="commentInput"
+        name="commentInput"
+        class="input-form text-area"
+        placeholder="Комментарий..."
+      ></textarea>
+
+    </div>
+
+    <div class="process-links">
+      <button
+        href="/income-expenses"
+        class="edit-link border-0"
+        id="editBtn"
+      >Сохранить
+      </button>
+      <a
+        href="/income-expenses"
+        class="canceled-link"
+      >Отмена
+      </a>
+    </div>
+  </div>
+</div>

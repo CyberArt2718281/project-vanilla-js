@@ -4,7 +4,7 @@
 
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button" id="menu-scrollbar-colapse"><i class="fas fa-bars"></i></a>
       </li>
     </ul>
   </nav>
@@ -17,11 +17,11 @@
       <div class="sidebar-tools">
         <div class="logo text-center">
           <img
-            src="./assets/images/logo.svg"
+            src="/assets/images/logo.svg"
             alt="AdminLTE Logo"
           >
         </div>
-        <nav class="main-nav" >
+        <nav class="main-nav" id="main-nav" >
           <ul
             class="nav nav-pills nav-sidebar flex-column"
             data-widget="treeview"
@@ -88,22 +88,23 @@
         </nav>
       </div>
 
-      <div class="user-panel">
-        <div class="balance d-flex align-items-center ">
-          <span>Баланс: </span><strong id="amount-loyout">500$</strong>
+      <div class="user-panel position-relative ">
+        <div class="balance d-flex align-items-center">
+          <span>Баланс: </span><strong id="amount-layout"></strong>
         </div>
         <div class="row"></div>
-        <div class="info">
+        <div class="info"  id="profile-toggle">
           <div class="info-circle">
             <img
-              src="./assets/images/profile-user.svg"
+              src="/assets/images/profile-user.svg"
               class="profile-user"
             >
           </div>
 
-          <span class="user-name-loyout" id="userFullName">Пользователь</span>
+          <span class="user-name-loyout" id="userFullName"></span>
 
         </div>
+        <a class="logout position-absolute nav-link " id="logout" href="/logout">Выйти</a>
       </div>
     </div>
 

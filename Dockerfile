@@ -1,8 +1,10 @@
-FROM node:22.14.0-alpine AS builder
+FROM node:lts-alpine3.20 AS builder
 WORKDIR /app
 COPY package.json ./
 RUN npm install
 COPY . .
+# Создаем пустой .env файл если его нет
+RUN touch .env
 RUN npm run build:prod
 FROM nginx:alpine
 COPY --from=builder /app/dist /usr/share/nginx/html

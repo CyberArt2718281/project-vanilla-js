@@ -1,5 +1,7 @@
+import type {Routes} from "../types/router/routes.type.ts";
+
 export class ActivateUi {
-   static isRouteInMenuCollapse(routePath) {
+   static isRouteInMenuCollapse(routePath:string) {
       const menuCollapseRoutes = ['/income', '/expenses'];
       const menuCollapsePatterns = [
          /^\/income(\/|$)/,
@@ -10,7 +12,7 @@ export class ActivateUi {
         menuCollapsePatterns.some(pattern => pattern.test(routePath));
    }
 
-   static isIncomeExpensesRoute(routePath) {
+   static isIncomeExpensesRoute(routePath:string) {
       const incomeExpensesRoutes = ['/income-expenses'];
       const incomeExpensesPatterns = [
          /^\/income-expenses(\/|$)/,
@@ -20,7 +22,7 @@ export class ActivateUi {
         incomeExpensesPatterns.some(pattern => pattern.test(routePath));
    }
 
-   static getParentRoute(routePath) {
+   static getParentRoute(routePath:string) {
       if (routePath.startsWith('/income')) {
          return '/income';
       } else if (routePath.startsWith('/expenses')) {
@@ -31,7 +33,8 @@ export class ActivateUi {
       return routePath;
    }
 
-   static activateMenuItem(route) {
+   static activateMenuItem(route:Routes) {
+      if(!route.route)return
       const allLinks = document.querySelectorAll('.sidebar .nav-link, .menu-collapse-link');
       const menuCollapse = document.getElementById('menu-select-nav-bar');
       const selectNavBar = document.getElementById('select-nav-bar');
