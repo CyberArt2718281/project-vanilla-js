@@ -1,8 +1,13 @@
+import type { Expense } from '@/types/expenses/expenses-service/expense.type'
 import type { ExpenseBodyType } from '../types/expenses/expenses-service/expense-body.type'
 import type { ExpenseTypes } from '../types/expenses/expenses-service/expenses.type'
 
 import { HttpUtils } from '../utils/http-utils'
+import type { ErrorTypes } from '@/types/services/error.type'
+import type { ResultResponse } from '@/types/http-utils.type'
 
+type ResponseExpenses = null | Expense[] | ErrorTypes | []
+type ResponseExpense = null | Expense | ErrorTypes
 export class ExpensesService {
 	public static async getExpenses(): Promise<ExpenseTypes> {
 		const returnObject: ExpenseTypes = {
@@ -11,7 +16,7 @@ export class ExpensesService {
 			expenses: null,
 		}
 
-		const result = await HttpUtils.request('categories/expense')
+		const result: ResultResponse<ResponseExpenses> = await HttpUtils.request<ResponseExpenses, null>('categories/expense')
 
 		if (result.error) {
 			if (returnObject.error) {
@@ -34,7 +39,7 @@ export class ExpensesService {
 			expense: null,
 		}
 
-		const result = await HttpUtils.request('categories/expense/' + id)
+		const result:ResultResponse<ResponseExpense> = await HttpUtils.request<ResponseExpense, null>('categories/expense/' + id)
 
 		if (result.error || !result.response) {
 			returnObject.error = 'Возникла ошибка при запросе расхода'
@@ -57,7 +62,7 @@ export class ExpensesService {
 			redirect: null,
 		}
 
-		const result = await HttpUtils.request(
+		const result: ResultResponse<ResponseExpense> = await HttpUtils.request<ResponseExpense, ExpenseBodyType>(
 			'categories/expense',
 			true,
 			'POST',
@@ -82,7 +87,7 @@ export class ExpensesService {
 			redirect: null,
 		}
 
-		const result = await HttpUtils.request(
+		const result: ResultResponse<ResponseExpense> = await HttpUtils.request<ResponseExpense, null>(
 			'categories/expense/' + id,
 			true,
 			'Delete'
@@ -107,7 +112,7 @@ export class ExpensesService {
 			redirect: null,
 		}
 
-		const result = await HttpUtils.request(
+		const result: ResultResponse<ResponseExpense> = await HttpUtils.request<ResponseExpense, ExpenseBodyType>(
 			'categories/expense/' + id,
 			true,
 			'PUT',

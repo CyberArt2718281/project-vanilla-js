@@ -264,7 +264,7 @@ export class Router implements IRouter {
 			}
 
 			if (typeof ($ as JQueryStatic).fn.pushMenu !== 'undefined') {
-				;($('[data-widget="pushmenu"]') as any).pushMenu('collapse')
+				$('[data-widget="pushmenu"]').pushMenu('collapse')
 			}
 		}
 	}
@@ -394,7 +394,6 @@ export class Router implements IRouter {
 						}
 					}
 
-					
 					this.profileElement = document.getElementById('userFullName')
 
 					let isActive = false
@@ -440,11 +439,11 @@ export class Router implements IRouter {
 						this.openNewRoute(balance.redirect)
 						return
 					}
-					this.balance = (balance as any).balance ? (balance as any).balance : 0
+					this.balance = balance.balance ? balance.balance : 0
 
 					const amountElement = document.getElementById('amount-layout')
 					if (amountElement) {
-						amountElement.innerText = this.balance.toString() + "$";
+						amountElement.innerText = this.balance.toString() + '$'
 					}
 
 					if (this.profileElement && this.userName) {

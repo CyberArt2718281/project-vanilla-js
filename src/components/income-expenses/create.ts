@@ -8,6 +8,8 @@ import { OperationsService } from '../../services/operations-service'
 import { AuthUtils } from '../../utils/auth-utils'
 import { KeyboardUtils } from '../../utils/keyboardUtils'
 import { ValidationUtils } from '../../utils/validation-utils'
+import type { Income } from '@/types/incomes/incomes-service/income.type'
+import type { Expense } from '@/types/expenses/expenses-service/expense.type'
 
 export class CreateIncomesExpenses {
 	readonly openNewRoute: OpenNewRouteType
@@ -95,10 +97,10 @@ export class CreateIncomesExpenses {
 		return dateString
 	}
 
-	private setOption(data: any[]): void {
-		data.forEach((item: any) => {
+	private setOption(data: Income[] | Expense[]): void {
+		data.forEach((item: {title:string, id:number}) => {
 			const option = document.createElement('option')
-			option.value = item.id
+			option.value = item.id.toString()
 			option.text = item.title
 			this.categoryInput?.appendChild(option)
 		})

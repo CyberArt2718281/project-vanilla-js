@@ -17,6 +17,10 @@ export class Main {
 	private pieChartCanvas!: CanvasRenderingContext2D | null
 	private pieChartCanvas2!: CanvasRenderingContext2D | null
 
+
+	private pieChart: Chart | null = null
+	private pieChart2: Chart | null = null
+
 	private isIntervalMode: boolean = false
 	constructor(openNewRoute: (arg: string) => void) {
 		this.openNewRoute = openNewRoute
@@ -324,9 +328,15 @@ export class Main {
 		}
 	}
 	private clearChart(chartName: 'pieChart' | 'pieChart2'): void {
-		if ((this as any)[chartName]) {
-			;(this as any)[chartName].destroy()
-			;(this as any)[chartName] = null
+		const chart = chartName === 'pieChart' ? this.pieChart : this.pieChart2
+
+		if (chart) {
+			chart.destroy()
+			if (chartName === 'pieChart') {
+				this.pieChart = null
+			} else {
+				this.pieChart2 = null
+			}
 		}
 
 		const canvasId = chartName === 'pieChart' ? 'donutChart' : 'donutChart2'
@@ -353,9 +363,11 @@ export class Main {
 		title: string,
 		chartName: 'pieChart' | 'pieChart2'
 	): void {
-		if ((this as any)[chartName]) {
-			;(this as any)[chartName].destroy()
-			;(this as any)[chartName] = null
+	
+		const existingChart =
+			chartName === 'pieChart' ? this.pieChart : this.pieChart2
+		if (existingChart) {
+			existingChart.destroy()
 		}
 
 		if (!canvas) return
@@ -431,11 +443,18 @@ export class Main {
 					},
 				},
 			},
-		};
-		(this as any)[chartName] = new Chart(canvas, {
+		}
+
+		const newChart = new Chart(canvas, {
 			type: 'pie',
 			data: pieData,
 			options: pieOptions,
 		})
+
+		if (chartName === 'pieChart') {
+			this.pieChart = newChart
+		} else {
+			this.pieChart2 = newChart
+		}
 	}
 }

@@ -1,6 +1,12 @@
+import type { Operation } from '@/types/operations/operation-service/operation.type'
 import type { OperationBodyType } from '../types/operations/operation-service/operation-body.type'
 import type { OperationTypes } from '../types/operations/operation-service/operations.type copy'
 import { HttpUtils } from '../utils/http-utils'
+import type { ErrorTypes } from '@/types/services/error.type'
+import type { ResultResponse } from '@/types/http-utils.type'
+
+type ResponseOperations = null | Operation[] | ErrorTypes | []
+type ResponseOperation = null | Operation | ErrorTypes
 
 export class OperationsService {
 	static async getOperationsAll(): Promise<OperationTypes> {
@@ -10,7 +16,9 @@ export class OperationsService {
 			operations: null,
 		}
 
-		const result = await HttpUtils.request('operations?period=all')
+		const result:ResultResponse<ResponseOperations> = await HttpUtils.request<ResponseOperations, null>(
+			'operations?period=all'
+		)
 
 		if (result.error) {
 			returnObject.error = 'Возникла ошибка при запросе операций'
@@ -19,8 +27,10 @@ export class OperationsService {
 			}
 			return returnObject
 		}
+		if (returnObject.operations) {
+			returnObject.operations = result.response
+		}
 
-		returnObject.operations = result.response
 		return returnObject
 	}
 	static async getOperationsYear(): Promise<OperationTypes> {
@@ -30,7 +40,7 @@ export class OperationsService {
 			operations: null,
 		}
 
-		const result = await HttpUtils.request('operations?period=year')
+		const result:ResultResponse<ResponseOperations> = await HttpUtils.request<ResponseOperations, null>('operations?period=year')
 
 		if (result.error) {
 			returnObject.error = 'Возникла ошибка при запросе операций'
@@ -51,7 +61,7 @@ export class OperationsService {
 			operations: null,
 		}
 
-		const result = await HttpUtils.request('operations?period=day')
+		const result:ResultResponse<ResponseOperations> = await HttpUtils.request<ResponseOperations, null>('operations?period=day')
 
 		if (result.error) {
 			returnObject.error = 'Возникла ошибка при запросе операций'
@@ -71,7 +81,7 @@ export class OperationsService {
 			operations: null,
 		}
 
-		const result = await HttpUtils.request('operations?period=month')
+		const result:ResultResponse<ResponseOperations> = await HttpUtils.request<ResponseOperations, null>('operations?period=month')
 
 		if (result.error) {
 			returnObject.error = 'Возникла ошибка при запросе операций'
@@ -91,7 +101,7 @@ export class OperationsService {
 			operations: null,
 		}
 
-		const result = await HttpUtils.request('operations?period=week')
+		const result:ResultResponse<ResponseOperations> = await HttpUtils.request<ResponseOperations, null>('operations?period=week')
 
 		if (result.error) {
 			returnObject.error = 'Возникла ошибка при запросе операций'
@@ -114,7 +124,7 @@ export class OperationsService {
 			operations: null,
 		}
 
-		const result = await HttpUtils.request(
+		const result:ResultResponse<ResponseOperations> = await HttpUtils.request<ResponseOperations, null>(
 			`operations?period=interval&dateFrom=${dayFrom}&dateTo=${dayTo}`
 		)
 
@@ -137,7 +147,7 @@ export class OperationsService {
 			operation: null,
 		}
 
-		const result = await HttpUtils.request('operations/' + id)
+		const result: ResultResponse<ResponseOperation>= await HttpUtils.request<ResponseOperation, null>('operations/' + id)
 
 		if (result.error || !result.response) {
 			returnObject.error = 'Возникла ошибка при запросе операции'
@@ -159,7 +169,12 @@ export class OperationsService {
 			redirect: null,
 		}
 
-		const result = await HttpUtils.request('operations', true, 'POST', data)
+		const result:ResultResponse<ResponseOperation> = await HttpUtils.request<ResponseOperation, OperationBodyType>(
+			'operations',
+			true,
+			'POST',
+			data
+		)
 
 		if (result.error || !result.response) {
 			returnObject.error = 'Возникла ошибка при создании операции'
@@ -178,7 +193,7 @@ export class OperationsService {
 			redirect: null,
 		}
 
-		const result = await HttpUtils.request('operations/' + id, true, 'Delete')
+		const result:ResultResponse<ResponseOperation> = await HttpUtils.request<ResponseOperation, null>('operations/' + id, true, 'Delete')
 
 		if (result.error) {
 			returnObject.error = 'Возникла ошибка при удалении операции'
@@ -190,7 +205,7 @@ export class OperationsService {
 		return returnObject
 	}
 
-	static async updateExpense(
+	static async updateOperation(
 		id: string | number,
 		data: OperationBodyType
 	): Promise<OperationTypes> {
@@ -199,7 +214,7 @@ export class OperationsService {
 			redirect: null,
 		}
 
-		const result = await HttpUtils.request(
+		const result: ResultResponse<ResponseOperation> = await HttpUtils.request<ResponseOperation, OperationBodyType>(
 			'operations/' + id,
 			true,
 			'PUT',

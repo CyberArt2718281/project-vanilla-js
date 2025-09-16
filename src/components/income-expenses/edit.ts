@@ -240,7 +240,7 @@ export class EditIncomesExpenses {
 				comment: this.commentInput.value || '',
 			}
 
-			const response = await OperationsService.updateExpense(
+			const response = await OperationsService.updateOperation(
 				this.operationId,
 				dataOperation
 			)

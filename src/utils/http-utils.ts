@@ -1,21 +1,17 @@
 // import { Request } from './../../node_modules/typescript/lib/typescript.d';
+import type { ErrorCommonResponseType } from '@/types/error-common-response.type'
 import config from '../config/config'
 import { AuthUtils } from './auth-utils'
-
-interface RequestResult {
-	error: boolean
-	response: any
-	redirect?: string
-}
+import type { ResultResponse } from '@/types/http-utils.type'
 
 export class HttpUtils {
-	public static async request(
+	public static async request<R, B>(
 		url: string,
 		useAuth: boolean = true,
 		method: string = 'GET',
-		body: any = null
-	): Promise<RequestResult> {
-		const result: RequestResult = {
+		body: B | null = null
+	): Promise<ResultResponse<R>> {
+		const result: ResultResponse<R> = {
 			error: false,
 			response: null,
 		}
@@ -39,7 +35,7 @@ export class HttpUtils {
 			params.body = JSON.stringify(body)
 		}
 		try {
-			let response: Response = await fetch(config.api + url, params)
+			let response:Response = await fetch(config.api + url, params)
 			if (response.status < 200 || response.status >= 300) {
 				result.error = true
 				if (useAuth && response.status === 401) {

@@ -1,7 +1,13 @@
+import type { ErrorTypes } from '@/types/services/error.type'
 import type { IncomeBodyType } from '../types/incomes/incomes-service/income-body.type'
 import type { IncomesTypes } from '../types/incomes/incomes-service/incomes.type'
 import { HttpUtils } from '../utils/http-utils'
+import type { Operation } from '@/types/operations/operation-service/operation.type'
+import type { ResultResponse } from '@/types/http-utils.type'
+import type { Income } from '@/types/incomes/incomes-service/income.type'
 
+type ResponseIncomes = null | Income[] | ErrorTypes | []
+type ResponseIncome = null | Income | ErrorTypes
 export class IncomesService {
 	static async getIncomes(): Promise<IncomesTypes> {
 		const returnObject: IncomesTypes = {
@@ -10,7 +16,10 @@ export class IncomesService {
 			incomes: null,
 		}
 
-		const result = await HttpUtils.request('categories/income')
+		const result: ResultResponse<ResponseIncomes> = await HttpUtils.request<
+			ResponseIncomes,
+			null
+		>('categories/income')
 
 		if (result.error) {
 			returnObject.error = 'Возникла ошибка при запросе доходов'
@@ -19,8 +28,9 @@ export class IncomesService {
 			}
 			return returnObject
 		}
-
-		returnObject.incomes = result.response
+		if (result.response) {
+			returnObject.incomes = result.response
+		}
 		return returnObject
 	}
 
@@ -31,7 +41,10 @@ export class IncomesService {
 			income: null,
 		}
 
-		const result = await HttpUtils.request('categories/income/' + id)
+		const result: ResultResponse<ResponseIncome> = await HttpUtils.request<
+			ResponseIncome,
+			null
+		>('categories/income/' + id)
 
 		if (result.error || !result.response) {
 			returnObject.error = 'Возникла ошибка при запросе дохода'
@@ -40,8 +53,9 @@ export class IncomesService {
 			}
 			return returnObject
 		}
-
-		returnObject.income = result.response
+		if (result.response) {
+			returnObject.income = result.response
+		}
 		return returnObject
 	}
 
@@ -51,7 +65,7 @@ export class IncomesService {
 			redirect: null,
 		}
 
-		const result = await HttpUtils.request(
+		const result: ResultResponse<ResponseIncome> = await HttpUtils.request<ResponseIncome,IncomeBodyType >(
 			'categories/income',
 			true,
 			'POST',
@@ -75,7 +89,7 @@ export class IncomesService {
 			redirect: null,
 		}
 
-		const result = await HttpUtils.request(
+		const result: ResultResponse<ResponseIncome> = await HttpUtils.request<ResponseIncome, null>(
 			'categories/income/' + id,
 			true,
 			'Delete'
@@ -100,7 +114,10 @@ export class IncomesService {
 			redirect: null,
 		}
 
-		const result = await HttpUtils.request(
+		const result: ResultResponse<ResponseIncome> = await HttpUtils.request<
+			ResponseIncome,
+			IncomeBodyType
+		>(
 			'categories/income/' + id,
 			true,
 			'PUT',
