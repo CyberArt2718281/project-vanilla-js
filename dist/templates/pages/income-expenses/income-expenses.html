@@ -2,4 +2,60 @@
   <div class="header">
     <span class="title">Доходы и расходы</span>
   </div>
+  <div class="process-links">
+    <a
+      href="/income-expenses/create?typeId=income"
+      class="edit-link"
+      id="income-create"
+    >Создать доход
+    </a>
+    <a
+      href="/income-expenses/create?typeId=expense"
+      class="canceled-link"
+      id="expense-create"
+    >Создать расход
+    </a>
+  </div>
+  <div class="tabs" id="tabs">
+    <button class="date" id="day">
+      Сегодня
+    </button>
+    <button class="date" id="week">
+      Неделя
+    </button>
+    <button class="date" id="month">
+      Месяц
+    </button>
+    <button class="date" id="year">
+      Год
+    </button>
+    <button class="date active" id="all">
+      Все
+    </button>
+    <button class="date-interval" id="interval">
+      Интервал
+    </button>
+    <div class="date-current">
+      c <span id="dateFrom">Дата</span> по <span id="dateTo">Дата</span>
+    </div>
+  </div>
+  <table class="table" >
+    <thead>
+        <th style="width: 50px">№ операции</th>
+        <th class="sortable">Тип</th>
+        <th class="sortable">Категория</th>
+        <th class="sortable">Сумма</th>
+        <th class="sortable">Дата</th>
+        <th>Комментарий</th>
+        <th></th>
+    </thead>
+    <tbody id="table-body"></tbody>
+  </table>
+  <div class="popup d-none">
+    <h3 class="popup-text">Вы действительно хотите удалить операцию?</h3>
+    <div class="popupLinks">
+      <button class="success-delete-link " id="confirmed-delete">Да, удалить</button>
+      <button type="button" class="delete-link" id="not-delete">Нет, не удалять</button>    </div>
+  </div>
+
 </div>

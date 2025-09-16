@@ -23,6 +23,7 @@
       Создайте аккаунт
     </div>
     <form>
+      <div class="input-error text-center text-danger mb-2" id="input-error-common"></div>
 
       <div class="input-group">
         <div class="svg-block" id="svg-block-name">
@@ -38,7 +39,7 @@
           class="input-form"
           placeholder="Имя"
         />
-        <span class="input-error mt-1 d-none text-danger" id="input-error-name">
+        <span class="input-error mt-1  text-danger" id="input-error-name">
             Введите имя
           </span>
       </div>
@@ -52,12 +53,12 @@
         </div>
         <input
           type="text"
-          id="lastNameInput"
+          id="last-nameInput"
           name="lastNameInput"
           class="input-form"
           placeholder="Фамилия"
         />
-        <span class="input-error mt-1 d-none text-danger" id="input-error-lastName">
+        <span class="input-error mt-1  text-danger" id="input-error-last-name">
             Введите фамилию
           </span>
       </div>
@@ -85,7 +86,7 @@
           placeholder="Электронная почта"
           class="input-form "
         />
-        <span class="input-error mt-1 text-danger d-none" id="input-error-email">
+        <span class="input-error mt-1 text-danger" id="input-error-email">
               Введите корректный email
           </span>
       </div>
@@ -114,7 +115,7 @@
           class="input-form"
           placeholder="Пароль"
         />
-        <span class="input-error mt-1 d-none text-danger" id="input-error-password">
+        <span class="input-error mt-1  text-danger" id="input-error-password">
             Введите корректный пароль
           </span>
       </div>
@@ -138,12 +139,12 @@
         </div>
         <input
           type="password"
-          id="repeatPasswordInput"
+          id="repeat-passwordInput"
           name="repeatPasswordInput"
           class="input-form"
           placeholder="Подтверждение пароля"
         />
-        <span class="input-error mt-1 d-none text-danger" id="input-error-repeat-password">
+        <span class="input-error mt-1  text-danger" id="input-error-repeat-password">
             Пароли не совпадают
           </span>
       </div>

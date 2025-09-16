@@ -1,0 +1,53 @@
+{
+	"compilerOptions": {
+		// Environment setup & latest features
+		"lib": ["ESNext", "DOM"],
+		"target": "ESNext",
+		"module": "ESNext", // Исправлено с Preserve на ESNext
+		"moduleDetection": "force",
+		"jsx": "react-jsx",
+		"allowJs": true,
+		"checkJs": false, // Отключаем проверку JS файлов
+		"sourceMap": true,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"resolveJsonModule": true,
+		// Bundler mode
+		"moduleResolution": "bundler",
+		"verbatimModuleSyntax": true,
+		"noEmit": true,
+		"outDir": "./dist",
+
+		// Path mapping (алиасы)
+		"baseUrl": "./",
+		"paths": {
+			"@/*": ["src/*"]
+		},
+
+		// Best practices
+		"strict": true,
+		"skipLibCheck": true,
+		"noFallthroughCasesInSwitch": true,
+		"noUncheckedIndexedAccess": true,
+		"noImplicitOverride": true,
+
+		// Some stricter flags (disabled by default)
+		"noUnusedLocals": false,
+		"noUnusedParameters": false,
+		"noPropertyAccessFromIndexSignature": false,
+
+		"incremental": true,
+		"tsBuildInfoFile": "./buildcache/typescript.tsbuildinfo"
+	},
+	"exclude": [
+		"node_modules",
+		"dist",
+		"build",
+		"**/*.spec.ts",
+		"**/*.test.ts",
+		"webpack.config.js",
+		"src/components/income-expenses/edit.ts",
+		"src/components/income-expenses/create.ts",
+		"src/components/main.ts"
+	]
+}
