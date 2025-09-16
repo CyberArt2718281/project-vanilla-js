@@ -18,7 +18,14 @@ export class AuthUtils {
     localStorage.removeItem(this.refreshTokenKey);
     localStorage.removeItem(this.userInfoKey);
   }
-
+  export enum AuthInfoKey ={
+     accessTokenKey = 'accessToken',
+     refreshTokenKey = 'refreshToken',
+     userInfoKey = 'userInfo',
+}
+  export interface getAuthInfo{
+  [AuthInfoKey.accessTokenKey]?: string | null,
+  }
   static getAuthInfo(key = null) {
     if (key && [this.accessTokenKey, this.refreshTokenKey, this.userInfoKey].includes(key)) {
       return localStorage.getItem(key);
